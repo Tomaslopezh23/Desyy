@@ -45,7 +45,7 @@ var formattedExpectedDeliveryDate = expectedDeliveryDate
 
 app.use(express.json({ limit: "50mb" }));
 
-const YOUR_DOMAIN = "https://desyy-3.onrender.com/";
+const YOUR_DOMAIN = "https://desyy.com";
 // const YOUR_DOMAIN = "http://localhost:4242";
 
 const cloudinary = require("cloudinary").v2;
@@ -128,7 +128,7 @@ app.post("/create-checkout-session", async (req, res) => {
             price_data: {
               unit_amount: backSideDesign ? 3499 : 2499,
               product_data: {
-                name: "T-Shirt",
+                name: " Unisex T-Shirt",
                 description: "Awesome T-Shirt",
 
                 // images: [frontSideSecureUrl],
@@ -182,6 +182,10 @@ app.post("/create-checkout-session", async (req, res) => {
     console.log(error);
     res.status(500).send("Internal Server Error");
   }
+});
+
+app.listen(4242, () => console.log("Running on port 4242"));
+
 });
 
 app.listen(4242, () => console.log("Running on port 4242"));
