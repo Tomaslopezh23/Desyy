@@ -891,7 +891,7 @@ async function handleUpload(selectedSizes, shirtColor) {
     const uploadResponse = await uploadImage();
 
     const response = await fetch(
-      "https://desyy.com/create-checkout-session",
+      "https://desyy-3.onrender.com/create-checkout-session",
       {
         method: "POST",
         headers: {
@@ -981,7 +981,7 @@ async function uploadImage() {
   try {
     // Send the front side image data to backend and wait for completion
     if (hasImagesForFrontCanvas || hasTextForFrontCanvas) {
-      const frontResponse = await fetch("https://desyy.com/upload", {
+      const frontResponse = await fetch("https://desyy-3.onrender.com/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -998,7 +998,7 @@ async function uploadImage() {
 
     if (hasImagesForBackCanvas || hasTextForBackCanvas) {
       // Send the back side image data to backend and wait for completion
-      const backResponse = await fetch("https://desyy.com/uploadBack", {
+      const backResponse = await fetch("https://desyy-3.onrender.com/uploadBack", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
