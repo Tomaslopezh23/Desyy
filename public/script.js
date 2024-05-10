@@ -1473,3 +1473,4 @@ function toggleShirtInfo() {
     shirtInfo.parentElement.style.height = "auto";
   }
 }
+
