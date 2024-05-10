@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-Shirt</title>
+
+  <link rel="stylesheet" type="text/css" href="shirtinfo.css">
+
+</head>
+
+<body>
+
+  <button onclick="toggleShirtInfo()">Product Info</button>
+
+  <div class="shirtinfo">
+
+    <h2 class="prime">Is this Shirt really High-Quality?</h2>
+
+    <ol>
+      <li><strong>Superior Comfort:</strong> Soft cotton and polyester blend for a comfortable and lightweight
+        experience.</li>
+      <li><strong>Ideal for your Design:</strong> Smooth and consistent surface, perfect for printing vibrant colors and
+        sharp details.</li>
+      <li><strong>Exceptional Durability:</strong> Resistant to repeated washes without losing shape or color, ensuring
+        long-term durability.</li>
+      <li><strong>Variety of Colors:</strong> Wide color palette to express your unique style on any occasion.</li>
+      <li><strong>Versatile Style:</strong> Versatile cut suitable for everyday wear, casual events, and creative
+        customization.</li>
+    </ol>
+
+
+    <div class="boton1">
+      <button class="b1" onclick="toggleShirtInfo()">Close Info</button>
+      <img src="t-shirt/mouse.png" alt="mouse" class="image">
+    </div>
+
+    <main>
+      <div class="galeria">
+        <div class="lista-imagenes" id="lista-imagenes">
+          <img src="t-shirt/shirtimg1.jpg" alt="imagen-principal">
+          <img src="t-shirt/shirtimg2.jpg" alt="imagen-principal">
+          <img src="t-shirt/shirtimg3.jpg" alt="imagen-principal">
+          <img src="t-shirt/shirtimg4.jpg" alt="imagen-principal">
+          <img src="t-shirt/shirtimg5.jpg" alt="imagen-principal">
+          <img src="t-shirt/shirtimg6.jpg" alt="imagen-principal">
+          <img src="t-shirt/shirtimg7.jpg" alt="imagen-principal">
+        </div>
+        <div id="contador">1/</div>
+        <button onclick="moverIzquierda()" class="botonmoverizq">
+        </button>
+        <button onclick="moverDerecha()" class="botonmoverder">>
+        </button>
+      </div>
+    </main>
+
+    <div class="a1">
+      <h2 class="about">About</h2>
+      <p class="p1">The unisex soft-style t-shirt puts a new spin on casual comfort. Made from very soft materials, this
+        tee is 100% cotton for solid colors. Heather colors and sports grey include polyester. The shoulders have twill
+        tape for improved durability. There are no side seams. The collar is made with ribbed knitting to prevent
+        curling damage.</p>
+    </div>
+
+    <h2 class="a1" class="sizeguide">Size guide </h2>
+
+    <img src="t-shirt/camisa.png" alt="camisa" class="camisa">
+
+
+    <div class="medida">
+      <button onclick="mostrarDatos1()" id="boton1" class="botones">INCH</button>
+      <button onclick="mostrarDatos2()" id="boton2" class="botones">CENTIMETERS</button>
+    </div>
+
+    <div class="size">
+
+      <table id="tablaDatos">
+        <thead id="encabezado1">
+          <tr>
+            <th>Size</th>
+            <th>
+              <div class="circle">A</div>Width, in
+            </th>
+            <th>
+              <div class="circle">B</div>Length, in
+            </th>
+            <th>
+              <div class="circle">C</div>Sleeve, in
+            </th>
+          </tr>
+        </thead>
+        <thead id="encabezado2" style="display: none;">
+          <tr>
+            <th>Size</th>
+            <th>
+              <div class="circle">A</div>Width, cm
+            </th>
+            <th>
+              <div class="circle">B</div>Length, cm
+            </th>
+            <th>
+              <div class="circle">C</div>Sleeve, cm
+            </th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla">
+          <!-- Los datos de la tabla se actualizarán dinámicamente aquí -->
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="a1">
+      <h2 class="key">Key features</h2>
+
+      <ul class="list2">
+        <li><strong>Without side seams:</strong> Knit in one piece using tubular knit, it reduces fabric waste and makes
+          the garment more attractive</li>
+        <li><strong>Shoulder tape:</strong> Twill tape covers the shoulder seams to stabilize the back of the garment
+          and prevent stretching</li>
+        <li><strong>Ribbed knit with seam:</strong> Ribbed knit makes the collar highly elastic and helps retain its
+          shape</li>
+        <li><strong>Fabric:</strong> Made from specially spun fibers that make very durable and smooth fabric that is
+          perfect for printing. The "Natural" color is made with unprocessed cotton, which results in small black flecks
+          throughout the fabric</li>
+      </ul>
+    </div>
+
+    <div class="a1">
+      <h2 class="care">Care Instructions</h2>
+
+      <p class="p2">Do not dryclean; Machine wash: warm (max 40C or 105F); Do not bleach; Tumble dry: low heat; Iron,
+        steam or dry: low heat.</p>
+    </div>
+
+    <hr>
+  </div>
+
+  <script src="shirtinfo.js"></script>
+
+</body>
+
+</html>

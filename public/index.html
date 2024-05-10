@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desyy</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="preload" as="style"
+    onload="this.rel='stylesheet'">
+  <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="preload" as="style"
+    onload="this.rel='stylesheet'">
+  <link rel="stylesheet" href="web/style.css" />
+
+  <link rel="icon" href="web/img/Logo.ico">
+
+  <meta name="description"
+    content="Do you want something unique? Then create something of your own! Enter here and make it a reality.">
+  <style>
+    .accordion-item {
+      cursor: pointer;
+    }
+
+    a {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+
+    <div class="navbar-content">
+
+      <a class="logo" id="logo-reload-page">
+        <h1>Desyy</h1>
+      </a>
+
+      <div class="menu">
+        <a onclick="scrollToSection('home')">Home</a>
+        <a onclick="scrollToSection('products')">Products</a>
+        <a href="web/politics.html">Politics</a>
+        <a href="web/contact.html">Contact</a>
+      </div>
+
+      <a class="cta-btn" onclick="scrollToSection('products')">Create Design</a>
+      <div class="menu-toggle-btn">
+        <div class="menu-icon"><i class="fas fa-bars fa-lg"></i></div>
+        <div class="close-icon"><i class="fas fa-times fa-lg"></i></div>
+      </div>
+      <div class="menu-dropdown">
+        <a onclick="scrollToSection('home')" class="menu-btn-link">Home</a>
+        <a href="web/politics.html" class="menu-btn-link">Politics</a>
+        <a href="web/contact.html" class="menu-btn-link">Contact</a>
+        <a onclick="scrollToSection('marquee')" class="cta-menu menu-btn-link">Create Design</a>
+        <div class="social-icons-menu">
+          <a href="https://www.facebook.com/people/Desyy/61556451298259/" target="_blank" class="menu-btn-link"
+            aria-label="Go to our Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/desyy.design/?hl=es-la" target="_blank" class="menu-btn-link"
+            aria-label="Go to our Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+
+  <section class="home" id="home">
+    <div class="home-content">
+      <div class="title-container">
+        <h1>Picture to product</h1>
+        <div class="description-container">
+          <span class="description-text">Craft your own look from digital image to tangible essential. Design custom
+            tees, hoodies, and mugs with ease and make your designs come to life.</span>
+        </div>
+      </div>
+      <div class="home-box-container">
+        <div class="home-box">
+          <div class="video-container">
+            <video class="home-box-video" autoplay muted loop playsinline>
+              <source src="web/img/video.mp4" type="video/mp4">
+            </video>
+          </div>
+          <a class="cta-btn" onclick="scrollToSection('products')">Create Design</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class=marquee id=marquee>
+    <div class=marquee__inner>
+      <div class=marquee__part>
+        Exclusive discounts for limited time
+      </div>
+      <div class=marquee__part>
+        Exclusive discounts for limited time
+      </div>
+      <div class=marquee__part>
+        Exclusive discounts for limited time
+      </div>
+      <div class=marquee__part>
+        Exclusive discounts for limited time
+      </div>
+      <div class=marquee__part>
+        Exclusive discounts for limited time
+      </div>
+      <div class=marquee__part>
+        Exclusive discounts for limited time
+      </div>
+    </div>
+  </div>
+
+  <section class="products panel" id="products">
+    <div class="title-products">
+      <h1>Our Products</h1>
+    </div>
+    <div class="products-container">
+      <div class="product-layer shirt-layer">
+        <a href="shirt.html" style="display: contents;">
+          <div class="discount-item">
+            <img src="web/img/discount2.png" alt="" />
+          </div>
+          <div class="product-title">
+            <h1>UNISEX T-SHIRT</h1>
+          </div>
+          <div class="img-box-shirt">
+            <img class="shirt-img" src="web/img/shirt.png" alt="" loading="lazy">
+            <img class="shirt-img2" src="web/img/shirtback.png" alt="" loading="lazy">
+          </div>
+
+          <div class="swiper mySwiper2">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="img-box-slider">
+                  <img class="shirt-img-slide" src="web/img/shirt.png" alt="" loading="lazy">
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="img-box-slider">
+                  <img class="shirt-img-slide" src="web/img/shirtback.png" alt="" loading="lazy">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+
+          <div class="product-price">
+            <a class="cta-btn cta-product" href="#">Design</a>
+            <h1 class="without-discount">$32</h1>
+            <h1 class="price-label">$24.99</h1>
+            <span>+ free shipping</span>
+          </div>
+        </a>
+      </div>
+      <div class="product-layer hoodie-layer">
+        <div class="discount-item">
+          <img src="web/img/discount.png" alt="" />
+        </div>
+        <div class="product-title">
+          <h1>HOODIE</h1>
+        </div>
+        <div class="img-box">
+          <img class="hoodie-img" src="web/img/hoodie.png" alt="" loading="lazy">
+          <img class="hoodie-img2" src="web/img/hoodieback.png" alt="" loading="lazy">
+        </div>
+
+        <div class="swiper mySwiper2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="img-box-slider">
+                <img class="shirt-img-slide" src="web/img/hoodie.png" alt="" loading="lazy">
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="img-box-slider">
+                <img class="shirt-img-slide" src="web/img/hoodieback.png" alt="" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+
+        <div class="product-price">
+          <a class="cta-btn cta-product" href="#">Design</a>
+          <h1 class="without-discount">$50</h1>
+          <h1 class="price-label">$39.99</h1>
+          <span>+ free shipping</span>
+        </div>
+      </div>
+
+
+      <div class="product-layer mug-layer" style="background-color: #a7afb5; cursor: default; pointer-events: none;">
+        <div class="discount-item">
+          <img src="web/img/discount.png" alt="" style="opacity: 0.6;" />
+        </div>
+        <div class="product-title">
+          <h1 style="color: rgba(0, 0, 0, 0.55);">MUG</h1>
+        </div>
+
+        <div class="img-box">
+          <img class="mug-img" src="web/img/mug.png" alt="" loading="lazy" style="opacity: 0.60;">
+          <img class="mug-img2" src="web/img/mugback.png" alt="" loading="lazy" style="opacity: 0.60;">
+        </div>
+        <div class="swiper mySwiper2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="img-box-slider">
+                <img class="shirt-img-slide" src="web/img/mug.png" alt="" loading="lazy"
+                  style="opacity: 0.60;">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+
+        <div class="product-price">
+          <a class="cta-btn cta-product" href="#" style="opacity: 0.6;">Design</a>
+          <h1 class="without-discount2">$25</h1>
+          <h1 class="price-label" style="color: rgba(0, 0, 0, 0.55);">$19.99</h1>
+          <span style="color: rgba(0, 0, 0, 0.55);">+ free shipping</span>
+        </div>
+
+        <div class="outstock">
+          <H1>OUT OF STOCK</H1>
+        </div>
+
+      </div>
+
+
+    </div>
+  </section>
+
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <section class="info swiper-slide first-info" data-bgcolor="#ffb2b2">
+        <div class="title-info">
+          <h1>Step #1</h1>
+        </div>
+        <div class="info-container">
+          <div class="info-text-content">
+            <h1>Select Product</h1>
+            <span>Dive into our range of premium products and handpick your preferred size, color, and style to begin
+              crafting your perfect product! Let your imagination soar.</span>
+          </div>
+          <div class="info-img-container">
+            <img src="web/img/step01.png" alt="" loading="lazy">
+          </div>
+        </div>
+      </section>
+      <section class="info swiper-slide" data-bgcolor="#fff4a3">
+        <div class="title-info">
+          <h1>Step #2</h1>
+        </div>
+        <div class="info-container">
+          <div class="info-text-content">
+            <h1>Design Product</h1>
+            <span>Unleash your creativity and design the perfect product from start to finish. With our intuitive
+              platform, upload your image and place it front and center or on the back.</span>
+          </div>
+          <div class="info-img-container">
+            <img src="web/img/step02.png" alt="" loading="lazy">
+          </div>
+        </div>
+      </section>
+      <section class="info swiper-slide info-trigger" data-bgcolor="#b2ffb6">
+        <div class="title-info">
+          <h1>Step #3</h1>
+        </div>
+        <div class="info-container">
+          <div class="info-text-content">
+            <h1>Receive Product</h1>
+            <span>Explore the anticipation as your customized product arrives at your doorstep. Experience the
+              satisfaction of holding your creation in your hands, ready to showcase to the world.</span>
+          </div>
+          <div class="info-img-container">
+            <img src="web/img/step03.png" alt="" loading="lazy">
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+  <section class="quality">
+    <div class="quality-container">
+      <div class="quality-text">
+        <h1>Quality</h1>
+        <span>From the initial design concept to the final product, each product is meticulously crafted with the finest
+          materials and attention to detail, ensuring durability, comfort, and style.</span>
+      </div>
+      <div class="quality-img">
+        <img src="web/img/qualityimg.png" alt="" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+  <section class="simplicity">
+    <div class="simplicity-container">
+      <div class="simplicity-text">
+        <h1>Simplicity</h1>
+        <span>You can customize and purchase your product in less than 10 clicks! At Desyy, we work hard to make things
+          super easy for you, so you can quickly find what you need.</span>
+      </div>
+      <div class="simplicity-img">
+        <img src="web/img/simplicityimg.png" alt="" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <section class="faq">
+    <div class="faq-title">
+      <h1>Have questions?</h1>
+    </div>
+    <div class="accordion">
+      <div class="accordion-item">
+        <div class="accordion-item-header">
+          Is my product payment secure?
+        </div>
+        <div class="accordion-item-body">
+          <div class="accordion-item-body-content">
+            Yes, your product payment is completely secure. We prioritize the safety and security of our customers'
+            transactions. We have partnered with Stripe, so, rest assured, your payment is in safe hands.</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-item-header">
+          How long does it take to receive my order once placed?
+        </div>
+        <div class="accordion-item-body">
+          <div class="accordion-item-body-content">
+            Once your order is placed, you can expect to receive it within approximately one week. We strive to process
+            and ship orders promptly to ensure you receive your items in a timely manner.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-item-header">
+          Can I customize both the front and back of the product?
+        </div>
+        <div class="accordion-item-body">
+          <div class="accordion-item-body-content">
+            Yes, you can customize both the front and back of the product to suit your preferences.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-item-header">
+          Can I make changes to my design after placing the order?
+        </div>
+        <div class="accordion-item-body">
+          <div class="accordion-item-body-content">
+            Unfortunately, once an order is placed, we are unable to make changes to the design. Our production process
+            begins promptly after an order is confirmed to ensure timely delivery of your customized item.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-item-header">
+          Are there any additional fees for customization or design services?
+        </div>
+        <div class="accordion-item-body">
+          <div class="accordion-item-body-content">
+            No, there are no additional fees for customization or design services. We believe in providing transparent
+            pricing and ensuring that our customers have access to a hassle-free customization experience.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!----------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-title">
+        <h1>Desyy</h1>
+      </div>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/people/Desyy/61556451298259/" target="_blank"
+          aria-label="Go to our Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/desyy.design/?hl=es-la" target="_blank" aria-label="Go to our Instagram"><i
+            class="fab fa-instagram"></i></a>
+      </div>
+      <div class="physios-container">
+        <h1>Website by</h1>
+        <a href="https://www.physiosagency.com/" class="cta-btn" target="_blank">Physios</a>
+      </div>
+      <div class="copyright">
+        <span>All rights reserved 2024@</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.min.js" defer></script>
+  <script src="https://smtpjs.com/v3/smtp.js" defer></script>
+  <script src="web/script.js" defer></script>
+
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-K71KHZX326"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-K71KHZX326');
+    });
+  </script>
+
+  <script>
+    function scrollToSection(sectionId) {
+      var section = document.getElementById(sectionId);
+      section.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+</body>
+
+</html>

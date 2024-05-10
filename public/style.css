@@ -1,0 +1,1038 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Public Sans", sans-serif;
+}
+
+@font-face {
+  font-family: letra;
+  src: url(fonts/letra1.ttf);
+}
+
+html {
+  overflow: hidden !important;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* display: flex; */
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #fff;
+  overflow: hidden !important;
+  scroll-behavior: smooth;
+}
+
+.website-name {
+  font-size: 1.5rem;
+  font-family: letra;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+.terms-condition-text {
+  font-size: 1rem;
+  margin: 0.5em 0;
+}
+
+.loading-modal {
+  display: none;
+  background-color: #fff;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 300px;
+  height: 300px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.loading-modal p {
+  font-size: 1.5rem;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  overflow-y: auto;
+  min-height: 100vh;
+  width: 30%;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2em;
+  z-index: 999;
+}
+
+.file-container {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.sidebar button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button-div button,
+.inch-div button,
+.change-size {
+  padding: 10px 20px;
+}
+
+button {
+  /* margin: 5px; */
+  padding: 10px 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.front-back-btn {
+  border: 2px solid #000;
+}
+
+/* .front-back-btn:hover {
+  background-color: inherit !important;
+} */
+
+@media (hover: hover) {
+  button:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+canvas {
+  width: 290px !important;
+  height: 332px !important;
+  cursor: default;
+}
+
+.image-preview-container button {
+  display: block;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+#preview {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.red-dot {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  cursor: -webkit-grab;
+  cursor: grab;
+  display: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transform: scaleX(-1);
+}
+
+.non-clickable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+.image-preview {
+  margin-right: 10px;
+}
+
+#fileName {
+  margin-left: 10px;
+}
+
+#image-preview-below-button {
+  height: 100px;
+  max-width: 100%;
+}
+
+i {
+  font-size: 35px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* Keeps padding and border inside the specified width */
+  font-size: 16px;
+}
+
+#colorPicker {
+  padding: 0;
+}
+
+.flex,
+.flex-2 {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 2em;
+}
+
+/* Style for when the input field is focused */
+input:focus {
+  outline: none;
+  /* Removes the default focus outline */
+  border-color: dodgerblue;
+  /* Changes border color on focus */
+  box-shadow: 0 0 5px dodgerblue;
+  /* Adds a shadow on focus */
+}
+
+.labels-div {
+  /* padding: 0 1em;
+  margin-top: 2em; */
+  margin-bottom: 1em;
+}
+
+#text-preview,
+#text-preview2 {
+  display: none !important;
+}
+
+.labels-div label {
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+.file-container {
+  width: 100%;
+}
+
+.text-container,
+.text-container-2 {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.text-btn-div {
+  margin-bottom: 1em;
+}
+
+.image-icon-container,
+.text-preview-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ccc;
+  padding: 1em;
+  border: 2px solid #a3a3a3;
+  margin-bottom: 1em;
+  border-radius: 5px;
+}
+
+.text-preview-container p {
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.image-preview-container img {
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.delete-icon {
+  font-size: 30px;
+}
+
+.buttons-div {
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon {
+  margin-right: 1em;
+}
+
+.move-icon {
+  cursor: all-scroll;
+}
+
+#text-preview {
+  margin-bottom: 1em;
+  font-size: 1rem;
+  display: inline;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#textbox {
+  display: inline;
+  margin-bottom: 1em;
+}
+
+.opacity-less {
+  opacity: 0.7;
+}
+
+.button-div {
+  position: relative;
+  z-index: 9999999;
+  text-align: center;
+  top: 3em;
+  width: 1300px;
+}
+
+.fa-bars {
+  display: none;
+}
+
+.cross-icon {
+  display: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+.canvas-div,
+.canvas-div-2 {
+  transform: translateX(-50%);
+  left: 40%;
+  width: 700px;
+  position: relative;
+  height: 100vh;
+  scale: 1.1;
+  background-color: #f3f3f3;
+}
+
+.canvas-div img,
+.canvas-div-2 img {
+  position: absolute;
+  width: 700px;
+  height: 772px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.size-guide-edit-div {
+  display: flex;
+  gap: 1em;
+}
+
+.product-info {
+  width: 100%;
+  text-decoration: none;
+}
+
+.product-info-btn-div {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.canvas-container {
+  /* transform: translate(-50%, -50%); */
+  left: 207px;
+  top: 232px;
+  position: absolute !important;
+}
+
+.btn {
+  font-size: 1rem;
+  display: block;
+  width: 100%;
+}
+
+.custom-file-input-label {
+  width: 100%;
+}
+
+.mt {
+  margin-top: 1em;
+}
+
+.shirt-size-menu {
+  text-align: center;
+  max-height: 400px;
+  overflow-y: scroll;
+  display: none;
+  /* z-index: 999;
+  position: relative; */
+}
+
+.shirt-size-menu h1 {
+  padding: 0.5em 0;
+  width: auto;
+  color:#000;
+  font-size: 2rem;
+}
+
+.size-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #ccc;
+  padding: 0.5em 0;
+}
+
+.size-div input {
+  width: 60px;
+}
+
+.choose-size-div {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.select-shirt-color-div {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin: 1em 0;
+}
+
+.color-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: chocolate;
+  cursor: pointer;
+  color: #fff;
+}
+
+.color-div span {
+  display: none;
+}
+
+.color-div.active span {
+  display: block;
+}
+
+#White {
+  background-color: #f1f1f3;
+  color: #000;
+}
+#Black {
+  background-color: black;
+}
+#Charcoal {
+  background-color: #575459;
+}
+#Cornsilk {
+  background-color: #f2e988;
+  color: #000;
+}
+#Dark-Chocolate {
+  background-color: #382d29;
+}
+#DarkHeather {
+  background-color: #454547;
+}
+#Gold {
+  background-color: #fbb023;
+}
+#Heather-Indigo {
+  background-color: #667288;
+}
+#green {
+  background-color: #6ed399;
+}
+#Heather-Navy {
+  background-color: #4f515d;
+}
+#Heather-Red {
+  background-color: #d6505d;
+}
+#Heather-Royal {
+  background-color: #7785ce;
+}
+#Ice-Grey {
+  background-color: #cecccb;
+}
+#dark-green {
+  background-color: #1e8c45;
+}
+#Light-Blue {
+  background-color: #ccddef;
+}
+#Military-Green {
+  background-color: #575a3f;
+}
+#Natural {
+  background-color: #faf1de;
+  color: #000;
+}
+#Navy {
+  background-color: #282d40;
+}
+#Orange {
+  background-color: #e3592a;
+}
+#Red {
+  background-color: #c03137;
+}
+#Royal {
+  background-color: #1c4d92;
+}
+#Sand {
+  background-color: #d4c9b7;
+}
+#Sapphire {
+  background-color: #1877af;
+}
+#Sport-Grey {
+  background-color: #afafb1;
+}
+#Tropical-Blue {
+  background-color: #188fa3;
+}
+
+.shirt-size-menu {
+  background-color: #eee;
+}
+
+.shirtSize {
+  background-color: #9652a8;
+  color: #fff;
+}
+
+.shirtSize:hover,
+.cart-btn:hover {
+  background-color: #844a94;
+}
+
+.cart-btn {
+  background-color: #9652a8;
+  color: #fff;
+  min-height: 43px;
+}
+
+.selected {
+  background-color: #9fa3a9;
+}
+
+#upload-image {
+  display: none;
+}
+
+.size-guide {
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  z-index: 99999999999999;
+  background: white;
+  padding: 1em;
+  min-width: 340px;
+  max-width: 340px;
+  height: 100dvh;
+  overflow-y: auto;
+  display: none;
+}
+
+.product-info-modal {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  z-index: 999;
+  /* height: 100vh; */
+  overflow-y: auto;
+}
+
+.shirt-reference-img {
+  margin-top: 1.5em;
+}
+
+th,
+td {
+  border: 1px solid #4b0082;
+  padding: 10px;
+  text-align: center;
+}
+
+tr:nth-child(even) td {
+  background-color: #e0e0e0;
+}
+
+.size-guide-div {
+  width: 100%;
+}
+
+.inch-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.inch-div button {
+  border: 2px solid #000;
+}
+
+.selected-guide {
+  background-color: rgb(159, 163, 169);
+}
+
+.close-menu {
+  font-size: 2rem;
+  position: absolute;
+  right: 17px;
+  top: 0em;
+  cursor: pointer;
+}
+
+.overlay {
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  position: fixed;
+  display: none;
+}
+
+.shirtsDesignDiv {
+  display: flex;
+  gap: 1em;
+}
+
+.shirtDesignImage {
+  display: none;
+  width: 50%;
+}
+
+@media (max-width: 1250px) {
+  .canvas-div,
+  .canvas-div-2 {
+    position: static;
+    transform: unset;
+  }
+}
+
+@media (max-width: 1050px) {
+  .labels-div {
+    /* position: absolute;
+    top: -277px; */
+    background: #fff;
+    /* left: 0;
+    right: 0; */
+    width: 100%;
+  }
+
+  .product-info-modal {
+    position: static;
+    height: auto !important;
+  }
+
+  #fontsize-label {
+    margin-top: 1em;
+  }
+  #fontFamilySelect {
+    margin-bottom: 1em;
+  }
+
+  html {
+    overflow-y: scroll !important;
+  }
+
+  body {
+    overflow-x: hidden;
+    /* overflow-y: auto !important; */
+    background-color: #ffff;
+    /* height: 200vh; */
+  }
+
+  .canvas-container {
+    left: 163px;
+    top: 156px;
+  }
+
+  .canvas-div,
+  .canvas-div-2 {
+    margin: 0 auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: 517px;
+    overflow: hidden;
+    scale: 1;
+  }
+
+  .canvas-div img,
+  .canvas-div-2 img {
+    height: 100%;
+    width: auto;
+    -o-object-fit: contain;
+    object-fit: contain;
+    position: static;
+  }
+
+  canvas {
+    width: 193px !important;
+    height: 221px !important;
+  }
+
+  #text-preview {
+    display: none !important;
+  }
+  .button-div {
+    width: 100%;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    top: 0em;
+    bottom: 0;
+    height: auto;
+    background: #fff;
+    min-height: auto;
+  }
+
+  .shirt-modification-div {
+    display: flex;
+    gap: 1em;
+  }
+
+  /* .text-container,
+  .text-container-2 {
+    margin-bottom: 3em;
+  } */
+
+  .shirt-size-menu {
+    background-color: #fff;
+  }
+
+  .flex,
+  .flex-2 {
+    margin-top: 1em;
+  }
+}
+
+@media (max-width: 700px) {
+  .canvas-div,
+  .canvas-div-2 {
+    width: 500px;
+    background-color: #fff;
+  }
+
+  canvas {
+    width: 188px !important;
+    height: 214px !important;
+  }
+
+  #fontsize-label {
+    display: none !important;
+  }
+
+  .canvas-container {
+    left: 157px;
+    top: 160px;
+  }
+
+  /* .button-div {
+    bottom: 210px;
+    top: unset;
+    z-index: 1;
+    position: absolute;
+  } */
+
+  .select-shirt-color-div {
+    position: absolute;
+    background: white;
+    top: -132px;
+  }
+
+  .sidebar {
+    position: relative;
+    margin-top: 3em;
+    top: 0;
+  }
+
+  .labels-div {
+    position: static;
+    margin: 0;
+    /* margin-bottom: 2em; */
+  }
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  .select-shirt-color-div {
+    position: static;
+  }
+
+  .shirt-size-menu {
+    max-height: 100%;
+    overflow-y: hidden;
+  }
+
+  .text-container {
+    margin-bottom: 0 !important;
+  }
+
+  /* .text-container:has(div) {
+    margin-top: 2em;
+  } */
+}
+
+@media (max-width: 500px) {
+  .canvas-div,
+  .canvas-div-2 {
+    width: 380px;
+    height: 463px;
+  }
+
+  .terms-condition-text {
+    font-size: 0.8rem;
+    margin: 0.5em 0;
+  }
+
+  .loader {
+    top: 31% !important;
+  }
+
+  #canvas2,
+  #canvas2 + canvas {
+    width: 221px !important;
+    height: 256px !important;
+  }
+
+  .canvas-div img,
+  .canvas-div-2 img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    scale: 1.3;
+  }
+
+  canvas {
+    width: 226px !important;
+    height: 259px !important;
+  }
+
+  .sidebar {
+    display: block;
+    margin-top: 0;
+    background-color: transparent;
+    top: -70px;
+    padding: 0 0.5em;
+  }
+
+  #text-preview2 {
+    display: none !important;
+  }
+
+  .button-div {
+    top: 1em;
+  }
+
+  .canvas-container {
+    left: 78px;
+    top: 112px;
+  }
+
+  /* .text-btn-div {
+    margin-top: 0em;
+  }
+
+  .text-btn-div:has(i) {
+    margin-top: 2em;
+  } */
+
+  .move-icon.move-icon {
+    display: none;
+  }
+  .delete-icon {
+    margin: 0;
+  }
+
+  .product-info-btn-div {
+    gap: 0.5em;
+  }
+
+  .flex {
+    gap: 0.4em;
+  }
+
+  .mt {
+    margin-top: 0.5em;
+  }
+}
+
+@media (max-width: 400px) {
+  .canvas-div {
+    width: 340px;
+  }
+
+  .canvas-container {
+    left: 58px;
+    /* top: 155px; */
+  }
+
+  .btn {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+}
+
+/* Estilos para el modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.loading-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.loader {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: none;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  position: absolute;
+  top: 42%;
+}
+
+.second-loader {
+  width: 78px;
+  display: inline-block;
+  height: 78px;
+  position: static;
+  border: 7px solid #333 !important;
+  border-bottom-style: inset !important;
+  margin-top: 1em;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-content h2 {
+  margin-right: 1em;
+}
+
+.modal-content p {
+  margin-top: 1em;
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilos para los botones en el modal */
+.modal-button {
+  background-color: #9652a8;
+  color: white;
+  border: 2px solid black;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilos para cambiar el color de los botones al pasar el mouse */
+.modal-button:hover {
+  background-color: #7d3e8c; /* Cambiar al color deseado */
+}
+
+/* Estilos para el contenedor de botones */
+.button-container {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .modal-content {
+    width: 90%;
+  }
+}

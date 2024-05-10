@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K71KHZX326"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K71KHZX326');
+</script>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desyy.com</title>
+    <style>
+
+@font-face {
+            font-family: 'letra1';
+            src: url('cosas/letra1.ttf') format('truetype');
+        }
+
+            h1 {
+            color:  black;
+            background-color: white;
+            padding-left: 10px;
+            align-content: center;
+            font-size: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 300px;
+        }
+
+        .up {
+            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            left: 0%;
+            z-index: 2;
+            background-color: white;
+            width: 100%;
+            height: 75px;
+        }
+
+        .name{
+            background-color: whitesmoke;
+            width: 250px;
+            height: 70px;
+            align-content: center;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 40px;
+            font-family: 'letra1';
+            
+        }
+
+        .name:hover {
+            cursor: pointer;
+            background-color: whitesmoke;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 35px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+
+
+        form {
+            padding: 50px 55px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            text-align: center;
+            width: 340px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        label {
+            color: #283629;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        input, textarea {
+            padding: 17px 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #fbedff;
+            border: 2px solid #f6f0fa;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #c2b5ca;
+        }
+
+        .form-txt {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .form-txt a {
+            color: #9a76b2;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn {
+            font-size: 16px;
+            color: #FFFFFF;
+            border: 0;
+            border-radius: 10px;
+            background-color: #a14cd9;
+            box-shadow: 0 0 20px rgba(140, 0, 254, 0.4);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #7f4bb0;
+        }
+
+
+        .add-to-cart-button {
+    background-color: purple;
+    color: white;
+    border: 2px solid black;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilos para cambiar el color del botón al pasar el mouse */
+.add-to-cart-button:hover {
+    background-color: #6a1b9a; /* Cambiar al color deseado */
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para los botones en el modal */
+.modal-button {
+    background-color: #9652a8;
+    color: white;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilos para cambiar el color de los botones al pasar el mouse */
+.modal-button:hover {
+    background-color: #7d3e8c; /* Cambiar al color deseado */
+}
+
+/* Estilos para el contenedor de botones */
+.button-container {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 900px) {
+    .modal-content {
+        width: 80%;
+    }
+}
+
+
+
+        @media screen and (max-width:991px) {
+
+
+
+            form {
+                padding: 50px 30px;
+                width: 80%;
+            }
+
+            input {
+                padding: 15px;
+            }
+            
+        }
+
+
+        @media screen and (max-width:550px){
+
+h1 {
+padding-left: 10px;
+font-size: 35px;
+width: 300px;
+}
+
+.up {
+width: 100%;
+height: 70px;
+margin-top: 0px;
+}
+
+.name{
+width: 250px;
+height: 70px;
+font-size: 35px;
+}
+
+}
+
+
+@media screen and (max-width:490px){
+
+h1 {
+padding-left: 10px;
+font-size: 30px;
+width: 250px;
+}
+
+.name{
+width: 200px;
+height: 70px;
+font-size: 35px;
+
+
+}
+
+}
+
+
+
+@media screen and (max-width:395px){
+
+h1 {
+padding-left: 10px;
+font-size: 25px;
+width: 250px;
+}
+
+.name{
+width: 200px;
+height: 70px;
+font-size: 30px;
+
+
+}
+
+}
+
+
+
+@media screen and (max-width:335px){
+
+h1 {
+padding-left: 10px;
+font-size: 24px;
+width: 250px;
+}
+
+.name{
+width: 180px;
+height: 70px;
+font-size: 25px;
+}
+
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="up">
+        <div class="name" onclick="window.location.href='/'">Desyy.com</div>
+        <h1>Contact us</h1>
+      </div>
+
+
+
+
+    <form style="margin-top: 100px;" action="https://formsubmit.co/desyydesign@gmail.com" method="POST" onsubmit="showModal()">
+   
+        <h2>Type Us!</h2>
+
+        <div class="input-group">
+
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Name">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email">
+
+            <label for="message">Message</label>
+            <textarea name="message" id="message" cols="30" rows="5" placeholder="Message"></textarea>
+ 
+            <input class="btn" type="submit" value="Submit" onclick="openModal()">
+
+            <input type="hidden" name="_next" value="http://127.0.0.1:5500/contact.html">
+            <input type="hidden" name="_captcha" value="false">
+        </div>
+
+    </form>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <h2>Your message has been sent</h2>
+          <div class="button-container">
+          </div>
+        </div>
+      </div>
+
+      <script>
+
+function openModal() {
+        var modal = document.getElementById("myModal");
+        var upElement = document.querySelector(".up");
+        if (upElement) {
+            upElement.style.display = "none";
+        }
+        modal.style.display = "block";
+    }
+
+      </script>
+
+
+    <h2>Contact Information:</h2>
+    <ul>
+        <li>Email Contact: support@desyy.com</li>
+    </ul>
+
+    <h2>Business Hours:</h2>
+    <p>Monday to Friday: 9:00 AM - 5:00 PM</p>
+
+    <h2 style="display: none;">Social Media:</h2>
+    <ul style="display: none;">
+        <li><a href="https://www.facebook.com/empresa" target="_blank">Facebook</a></li>
+        <li><a href="https://twitter.com/empresa" target="_blank">Twitter</a></li>
+        <li><a href="https://www.linkedin.com/company/empresa" target="_blank">LinkedIn</a></li>
+    </ul>
+
+    <h2 style="margin-bottom: 100px; padding: 30px;">We will improve this page for you!</h2>
+
+
+
+</body>
+</html>

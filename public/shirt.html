@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/fabric@5.3.0/dist/fabric.min.js"></script>
+    <link rel="stylesheet" href="shirtinfo/shirtinfo.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <title>Editor De Camisa</title>
+</head>
+
+<body>
+
+    <div class="button-div">
+        <button class="front-back-btn" id="holaBtn">Front</button>
+        <button class="front-back-btn" id="adiosBtn">Back</button>
+    </div>
+    <div class="canvas-div" id="canvas-front-container">
+        <img id="shirt-image" src="./Shirt/Front/Royal.jpeg" alt="Royal">
+        <canvas id="canvas" width="4500" height="5100"></canvas>
+    </div>
+    <div class="canvas-div-2" id="canvas-back-container">
+        <img id="shirt-image-back" src="./Shirt/Back/Royal.jpeg" alt="Royal">
+        <canvas id="canvas2" width="4500" height="5100"></canvas>
+    </div>
+
+    <img src="./image.png" alt="" style="display: none;" id="image-id">
+
+    <div>
+        <canvas id="exportCanvas" style="display: none;"></canvas>
+    </div>
+
+    <img id="red-dot" src="https://cdn-icons-png.flaticon.com/512/565/565888.png" class="red-dot"
+        style="display: none;">
+    <div id="center-coordinates" class="coordinates1"></div>
+    <div id="top-coordinates" class="coordinates2"></div>
+
+    <img id="shirt-img" src="./Shirt/Front/hello.jpeg" style="display: none;" alt="">
+
+    <div id="sidebar-canvas-one" class="sidebar">
+        <label for="textbox" style="display: none;" id="text-preview">Text Preview: </label>
+        <span class="cross-icon"> &#x2715;</span>
+
+        <span id="textbox" style="display: none;"></span>
+
+
+        <label for="fileInput" class="custom-file-input-label">
+            <div class="shirt-size-menu" id="shirt-size-menu-1">
+                <h1>Select Size</h1>
+                <form class="menu-form">
+                    <div class="size-div">
+                        <p>S</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="S" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeS1" value="0" readonly>
+                            <button class="change-size" data-size="S" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>M</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="M" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeM1" value="0" readonly>
+                            <button class="change-size" data-size="M" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>L</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="L" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeL1" value="0" readonly>
+                            <button class="change-size" data-size="L" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>XL</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="XL" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeXL1" value="0" readonly>
+                            <button class="change-size" data-size="XL" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>2XL</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="2XL" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="size2XL1" value="0" readonly>
+                            <button class="change-size" data-size="2XL" data-increment="1">+</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div class="flex buttons-container">
+                    <button class="btn" id="addTextBtn">Add Text</button>
+                    <button class="btn" onclick="document.getElementById('input').click()">Add Image</button>
+                </div>
+                <div class="select-shirt-color-div">
+                    <div id="White" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Black" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Charcoal" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Cornsilk" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Dark-Chocolate" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="DarkHeather" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Gold" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Indigo" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="green" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Navy" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Red" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Royal" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Ice-Grey" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="dark-green" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Light-Blue" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Military-Green" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Navy" class="color-div ">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Orange" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Red" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Royal" class="color-div active">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Sand" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Sapphire" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Sport-Grey" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Tropical-Blue" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                </div>
+                <div class="product-info-btn-div">
+                    <button onclick="toggleShirtInfo()" class="btn mt product-info" id="productinfo">Product
+                        Info</button>
+                    <button class="btn mt shirtColor">Shirt Color</button>
+                </div>
+                <div class="shirt-modification-div">
+                    <button class="btn mt shirtSize">Select Shirt Size and Purchase Now </button>
+                    <div class="size-guide-div" style="display: none;">
+                        <div class="loading-container">
+                            <button class="btn mt cart-btn" style="display: none;">Purchase Now</button>
+                            <span class="loader"></span>
+                        </div>
+                        <div class="size-guide-edit-div">
+                            <button class="btn mt edit-btn" style="display: none;">Return To Edit</button>
+                            <button class="btn mt size-guide-btn" style="display: none;">Open Size Guide</button>
+                        </div>
+
+                    </div>
+                </div>
+                <p class="website-name">DESYY</p>
+
+                <!-- <button id="download">Download</button> -->
+                <button id="upload-image">Upload Image</button>
+            </div>
+            <div class="flex-2 text-btn-div">
+                <i id="boldBtn" class="fa-solid fa-bold" style="display: none;" title="Bold"></i>
+                <i id="italicBtn" style="display: none;" class="fa-solid fa-italic" title="Italic"></i>
+                <i id="alignLeftBtn" style="display: none;" class="fa-solid fa-align-left" title="Left Align"></i>
+                <i id="alignCenterBtn" style="display: none;" class="fa-solid fa-align-center" title="Center Align"></i>
+                <i id="alignRightBtn" style="display: none;" class="fa-solid fa-align-right" title="Right Align"></i>
+            </div>
+
+
+            <input accept="image/*" type="file" name="image" id="input" style="display: none;" />
+        </label>
+        <div class="text-container"></div>
+        <div class="labels-div">
+            <label for="fontSizeInput" id="fontsize-label" style="display: none;">
+                Font Size:
+                <input id="fontSizeInput" type="number" style="display: none;" min="1" value="250">
+            </label>
+            <label for="colorPicker" id="color-label" style="display: none;">
+                Text Color:
+                <input id="colorPicker" type="color" style="display: none;" value="#000000">
+            </label>
+            <label for="fontFamily" style="display: none;" id="fontFamilylabel">
+                Choose Font:
+            </label>
+            <select id="fontFamilySelect" style="display: none;">
+                <option value="default">Choose Font</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Reddit Mono">Reddit Mono</option>
+                <option value="Roboto">Roboto</option>
+                <!-- Add more font options as needed -->
+            </select>
+        </div>
+
+        <div class="file-container">
+            <div class="image-container">
+                <div id="image-preview-container" class="image-preview-container">
+                </div>
+                <div id="fileName" class="non-clickable"></div>
+            </div>
+        </div>
+
+    </div>
+    <div id="sidebar-canvas-two" class="sidebar">
+        <label for="textbox2" style="display: none;" id="text-preview2">Text Preview: </label>
+        <span class="cross-icon"> &#x2715;</span>
+
+        <span id="textbox2" style="display: none;"></span>
+
+
+        <label for="fileInput" class="custom-file-input-label">
+            <div class="shirt-size-menu" id="shirt-size-menu-2">
+                <h1>Select Size</h1>
+                <form class="menu-form">
+                    <div class="size-div">
+                        <p>S</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="S" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeS2" value="0" readonly>
+                            <button class="change-size" data-size="S" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>M</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="M" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeM2" value="0" readonly>
+                            <button class="change-size" data-size="M" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>L</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="L" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeL2" value="0" readonly>
+                            <button class="change-size" data-size="L" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>XL</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="XL" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="sizeXL2" value="0" readonly>
+                            <button class="change-size" data-size="XL" data-increment="1">+</button>
+                        </div>
+                    </div>
+
+                    <div class="size-div">
+                        <p>2XL</p>
+                        <div class="choose-size-div">
+                            <button class="change-size" data-size="2XL" data-increment="-1">-</button>
+                            <input type="number" name="size" class="size" id="size2XL2" value="0" readonly>
+                            <button class="change-size" data-size="2XL" data-increment="1">+</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div class="flex buttons-container">
+                    <button class="btn" id="addTextBtn2">Add Text</button>
+                    <button class="btn" onclick="document.getElementById('input2').click()">Add Image</button>
+                </div>
+                <div class="select-shirt-color-div">
+                    <div id="White" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Black" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Charcoal" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Cornsilk" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Dark-Chocolate" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="DarkHeather" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Gold" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Indigo" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="green" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Navy" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Red" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Heather-Royal" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Ice-Grey" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="dark-green" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Light-Blue" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Military-Green" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Navy" class="color-div ">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Orange" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Red" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Royal" class="color-div active">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Sand" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Sapphire" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Sport-Grey" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                    <div id="Tropical-Blue" class="color-div">
+                        <span>&#10004;</span>
+                    </div>
+                </div>
+                <div class="product-info-btn-div">
+                    <button onclick="toggleShirtInfo()" class="btn mt product-info" id="productinfo">Product
+                        Info</button>
+                    <button class="btn mt shirtColor">Shirt Color</button>
+                </div>
+                <div class="shirt-modification-div">
+                    <button class="btn mt shirtSize">Select Shirt Size and Purchase Now</button>
+                    <div class="size-guide-div" style="display: none;">
+                        <div class="loading-container">
+                            <button class="btn mt cart-btn" style="display: none;">Purchase Now</button>
+                            <span class="loader"></span>
+                        </div>
+                        <div class="size-guide-edit-div">
+                            <button class="btn mt edit-btn" style="display: none;">Return To Edit</button>
+                            <button class="btn mt size-guide-btn" style="display: none;">Open Size Guide</button>
+                        </div>
+
+                    </div>
+                </div>
+                <p class="website-name">DESYY</p>
+
+                <!-- <button id="download">Download</button> -->
+                <button id="upload-image">Upload Image</button>
+            </div>
+            <div class="flex-2 text-btn-div">
+                <i id="boldBtn2" class="fa-solid fa-bold" style="display: none;" title="Bold"></i>
+                <i id="italicBtn2" style="display: none;" class="fa-solid fa-italic" title="Italic"></i>
+                <i id="alignLeftBtn2" style="display: none;" class="fa-solid fa-align-left" title="Left Align"></i>
+                <i id="alignCenterBtn2" style="display: none;" class="fa-solid fa-align-center"
+                    title="Center Align"></i>
+                <i id="alignRightBtn2" style="display: none;" class="fa-solid fa-align-right" title="Right Align"></i>
+            </div>
+
+
+            <input accept="image/*" type="file" name="image" id="input2" style="display: none;" />
+        </label>
+        <div class="text-container-2"></div>
+        <div class="labels-div">
+            <label for="fontSizeInput2" id="fontsize-label2" style="display: none;">
+                Font Size:
+                <input id="fontSizeInput2" type="number" style="display: none;" min="1" value="250">
+            </label>
+            <label for="colorPicker2" id="color-label2" style="display: none;">
+                Text Color:
+                <input id="colorPicker2" type="color" style="display: none;" value="#000000">
+            </label>
+            <label for="fontFamily" style="display: none;" id="fontFamilylabel2">
+                Choose Font:
+            </label>
+            <select id="fontFamilySelect2" style="display: none;">
+                <option value="default">Choose Font</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Reddit Mono">Reddit Mono</option>
+                <option value="Roboto">Roboto</option>
+                <!-- Add more font options as needed -->
+            </select>
+        </div>
+
+        <div class="file-container">
+            <div class="image-container">
+                <div id="image-preview-container2" class="image-preview-container">
+                </div>
+                <div id="fileName" class="non-clickable"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="overlay"></div>
+    <div class="size-guide">
+        <span class="close-menu">×</span>
+        <div class="inch-div">
+            <button class="measure-btn" id="inch">Inch</button>
+            <button class="measure-btn" id="centimeter">Centimeters</button>
+        </div>
+        <div class="size">
+            <table id="tablaDatos">
+                <thead id="encabezado1" style="display: table-header-group;">
+                    <tr>
+                        <th>Size</th>
+                        <th>
+                            <div class="circle">A</div>Width, in
+                        </th>
+                        <th>
+                            <div class="circle">B</div>Length, in
+                        </th>
+                        <th>
+                            <div class="circle">C</div>Sleeve, in
+                        </th>
+                    </tr>
+                </thead>
+                <thead id="encabezado2" style="display: none;">
+                    <tr>
+                        <th>Size</th>
+                        <th>
+                            <div class="circle">A</div>Width, cm
+                        </th>
+                        <th>
+                            <div class="circle">B</div>Length, cm
+                        </th>
+                        <th>
+                            <div class="circle">C</div>Sleeve, cm
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                    <tr>
+                        <td><strong>S</strong></td>
+                        <td>18</td>
+                        <td>28</td>
+                        <td>8.2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>M</strong></td>
+                        <td>20</td>
+                        <td>29</td>
+                        <td>8.5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>L</strong></td>
+                        <td>22</td>
+                        <td>30</td>
+                        <td>8.7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>XL</strong></td>
+                        <td>24</td>
+                        <td>31</td>
+                        <td>9.1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>XXL</strong></td>
+                        <td>26</td>
+                        <td>32</td>
+                        <td>9.2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3XL</strong></td>
+                        <td>28</td>
+                        <td>33</td>
+                        <td>9.5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <img class="shirt-reference-img" src="shirt-image.jpg" alt="">
+    </div>
+    <div id="myModal" class="modal">
+        <!-- Contenido del modal -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <!-- <h2>You'll be directed to the checkout, for now the shopping cart is disabled :(</h2> -->
+            <div class="shirtsDesignDiv">
+                <img src="" alt="Shirt-Front" id="shirtDesignFront" class="shirtDesignImage">
+                <img src="" alt="Shirt-Back" id="shirtDesignBack" class="shirtDesignImage">
+            </div>
+            <p class="terms-condition-text">By accepting you agree Desyy <a href="politics.html">Terms and
+                    Conditions</a></p>
+            <div class="button-container">
+                <button onclick="closeModal()" class="modal-button">Accept, Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-modal">
+        <div class="loader-div">
+            <p>Loading</p>
+            <span class="loader second-loader"></span>
+        </div>
+    </div>
+
+    <div class="product-info-modal">
+        <div class="shirtinfo">
+
+            <h2 class="prime">Is this Shirt really High-Quality?</h2>
+
+            <ol>
+                <li><strong>Superior Comfort:</strong> Soft cotton and polyester blend for a comfortable and lightweight
+                    experience.</li>
+                <li><strong>Ideal for your Design:</strong> Smooth and consistent surface, perfect for printing vibrant
+                    colors and
+                    sharp details.</li>
+                <li><strong>Exceptional Durability:</strong> Resistant to repeated washes without losing shape or color,
+                    ensuring
+                    long-term durability.</li>
+                <li><strong>Variety of Colors:</strong> Wide color palette to express your unique style on any occasion.
+                </li>
+                <li><strong>Versatile Style:</strong> Versatile cut suitable for everyday wear, casual events, and
+                    creative
+                    customization.</li>
+            </ol>
+
+
+            <div class="boton1">
+                <button class="b1" onclick="toggleShirtInfo()">Close Info</button>
+                <img src="shirtinfo/t-shirt/mouse.png" alt="mouse" class="image">
+            </div>
+
+            <main>
+                <div class="galeria">
+                    <div class="lista-imagenes" id="lista-imagenes">
+                        <img src="shirtinfo/t-shirt/shirtimg1.jpg" alt="imagen-principal">
+                        <img src="shirtinfo/t-shirt/shirtimg2.jpg" alt="imagen-principal">
+                        <img src="shirtinfo/t-shirt/shirtimg3.jpg" alt="imagen-principal">
+                        <img src="shirtinfo/t-shirt/shirtimg4.jpg" alt="imagen-principal">
+                        <!-- <img src="shirtinfo/t-shirt/shirtimg5.jpg" alt="imagen-principal">
+                        <img src="shirtinfo/t-shirt/shirtimg6.jpg" alt="imagen-principal">
+                        <img src="shirtinfo/t-shirt/shirtimg7.jpg" alt="imagen-principal"> -->
+                    </div>
+                    <div id="contador">1/</div>
+                    <button onclick="moverIzquierda()" class="botonmoverizq">
+                        <</button> <button onclick="moverDerecha()" class="botonmoverder">>
+                    </button>
+                </div>
+            </main>
+
+            <div class="a1">
+                <h2 class="about">About</h2>
+                <p class="p1">The unisex soft-style t-shirt puts a new spin on casual comfort. Made from very soft
+                    materials, this
+                    tee is 100% cotton for solid colors. Heather colors and sports grey include polyester. The shoulders
+                    have twill
+                    tape for improved durability. There are no side seams. The collar is made with ribbed knitting to
+                    prevent
+                    curling damage.</p>
+            </div>
+
+            <h2 class="a1" class="sizeguide">Size guide </h2>
+
+            <img src="shirtinfo/t-shirt/camisa.png" alt="camisa" class="camisa">
+
+
+            <div class="medida">
+                <button onclick="mostrarDatos1()" id="boton1" class="botones">INCH</button>
+                <button onclick="mostrarDatos2()" id="boton2" class="botones">CENTIMETERS</button>
+            </div>
+
+            <div class="size">
+
+                <table id="tablaDatos">
+                    <thead id="encabezado1">
+                        <tr>
+                            <th>Size</th>
+                            <th>
+                                <div class="circle">A</div>Width, in
+                            </th>
+                            <th>
+                                <div class="circle">B</div>Length, in
+                            </th>
+                            <th>
+                                <div class="circle">C</div>Sleeve, in
+                            </th>
+                        </tr>
+                    </thead>
+                    <thead id="encabezado2" style="display: none;">
+                        <tr>
+                            <th>Size</th>
+                            <th>
+                                <div class="circle">A</div>Width, cm
+                            </th>
+                            <th>
+                                <div class="circle">B</div>Length, cm
+                            </th>
+                            <th>
+                                <div class="circle">C</div>Sleeve, cm
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                        <tr>
+                            <td><strong>S</strong></td>
+                            <td>18</td>
+                            <td>28</td>
+                            <td>8.2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M</strong></td>
+                            <td>20</td>
+                            <td>29</td>
+                            <td>8.5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L</strong></td>
+                            <td>22</td>
+                            <td>30</td>
+                            <td>8.7</td>
+                        </tr>
+                        <tr>
+                            <td><strong>XL</strong></td>
+                            <td>24</td>
+                            <td>31</td>
+                            <td>9.1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>XXL</strong></td>
+                            <td>26</td>
+                            <td>32</td>
+                            <td>9.2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3XL</strong></td>
+                            <td>28</td>
+                            <td>33</td>
+                            <td>9.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="a1">
+                <h2 class="key">Key features</h2>
+
+                <ul class="list2">
+                    <li><strong>Without side seams:</strong> Knit in one piece using tubular knit, it reduces fabric
+                        waste and makes
+                        the garment more attractive</li>
+                    <li><strong>Shoulder tape:</strong> Twill tape covers the shoulder seams to stabilize the back of
+                        the garment
+                        and prevent stretching</li>
+                    <li><strong>Ribbed knit with seam:</strong> Ribbed knit makes the collar highly elastic and helps
+                        retain its
+                        shape</li>
+                    <li><strong>Fabric:</strong> Made from specially spun fibers that make very durable and smooth
+                        fabric that is
+                        perfect for printing. The "Natural" color is made with unprocessed cotton, which results in
+                        small black flecks
+                        throughout the fabric</li>
+                </ul>
+            </div>
+
+            <div class="a1">
+                <h2 class="care">Care Instructions</h2>
+
+                <p class="p2">Do not dryclean; Machine wash: warm (max 40C or 105F); Do not bleach; Tumble dry: low
+                    heat; Iron,
+                    steam or dry: low heat.</p>
+            </div>
+
+            <hr>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"
+        integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
