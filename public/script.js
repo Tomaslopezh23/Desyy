@@ -1,7 +1,3 @@
-
-let cornerRadius = function (cornerSize) {
-  return Math.max(cornerSize / 2, 1); // Minimum radius of 1 pixel
-};
 fabric.Object.prototype.set({
   cornerColor: "#9652a8",
   cornerSize: 200,
@@ -9,11 +5,8 @@ fabric.Object.prototype.set({
   transparentCorners: false,
   selectable: true,
   borderColor: "#9652a8",
-  borderScaleFactor: 30,
-  cornerStyle: "circle",
-  padding: 200,
+  borderScaleFactor: 20,
 });
-
 const canvas = new fabric.Canvas("canvas", {
   preserveObjectStacking: true,
 });
@@ -28,7 +21,7 @@ let selectedObject = null;
 let currentImageUrl = null; // variable to store the URL of the current image
 let SIZE;
 
-if (window.innerWidth <= 600) {
+if (window.innerWidth <= 500) {
   canvas.setWidth(700);
   canvas.setHeight(700);
   canvas2.setWidth(700);
@@ -36,13 +29,11 @@ if (window.innerWidth <= 600) {
 
   fabric.Object.prototype.set({
     cornerBackground: "red",
-    cornerSize: 45,
+    cornerSize: 65,
     cornerStrokeWidth: 20, // Width of the stroke around the controls
     transparentCorners: false,
     selectable: true,
-    borderScaleFactor: 10,
-    padding: 20,
-    cornerRadius: cornerRadius(40),
+    borderScaleFactor: 8,
   });
   SIZE = 600;
 } else {
@@ -285,8 +276,8 @@ if (window.innerWidth <= 500) {
 function addText(textbox, canvas, container) {
   document.querySelector(textbox).addEventListener("click", () => {
     const text = new fabric.IText("Edit your text", {
-      left: window.innerWidth <= 500 ? 50 : 100,
-      top: window.innerWidth <= 500 ? 50 : 100,
+      left: 100,
+      top: 100,
       width: 200, // Set a specific width for the text box
       height: 100, // Set a specific height for the text box
       fontFamily: "Arial",
@@ -599,8 +590,8 @@ function movingImages(container) {
       ui.placeholder.height(placeholderHeight + 15);
       $(
         '<div class="slide-placeholder-animator" data-height="' +
-        placeholderHeight +
-        '"></div>'
+          placeholderHeight +
+          '"></div>'
       ).insertAfter(ui.placeholder);
     },
     change: function (event, ui) {
@@ -631,8 +622,8 @@ function movingImages(container) {
             placeholderHeight = ui.item.outerHeight();
             $(
               '<div class="slide-placeholder-animator" data-height="' +
-              placeholderHeight +
-              '"></div>'
+                placeholderHeight +
+                '"></div>'
             ).insertAfter(ui.placeholder);
           }
         );
