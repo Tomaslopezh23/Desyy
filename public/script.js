@@ -1,12 +1,41 @@
+const mobileConfig = {
+  // cornerSize: 45, 
+  // cornerStrokeWidth: 20,   
+  // padding: 12,     
+  cornerSize: 30,            // Increase corner size for touch
+  cornerStrokeWidth: 2,      // Reduce stroke width for smoother appearance
+  padding: 10,
+  // cornerScalingAction: false,
+  cornerStyle: 'circle',
+};
+
+const desktopConfig = {
+  cornerSize: 150,
+  cornerStrokeWidth: 10,
+  padding: 50,
+  cornerStrokeColor: '#9652a8',
+  cornerStyle: 'circle',
+};
+
+const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
+
 fabric.Object.prototype.set({
-  cornerColor: "#9652a8",
-  cornerSize: 200,
-  cornerStrokeWidth: 200, // Width of the stroke around the controls
-  transparentCorners: false,
+  // Mobile-Optimized Selection
+  cornerSize: isMobile ? mobileConfig.cornerSize : desktopConfig.cornerSize,
+  cornerStrokeWidth: isMobile ? mobileConfig.cornerStrokeWidth : desktopConfig.cornerStrokeWidth,
+  padding: isMobile ? mobileConfig.padding : desktopConfig.padding,
+  transparentCorners: false, // Show clear selection indicators
   selectable: true,
-  borderColor: "#9652a8",
-  borderScaleFactor: 20,
+  // Improved User Experience (Optional Visual Feedback)
+  borderColor: '#9652a8', // Semi-transparent blue border on select
+  cornerColor: '#9652a8', // Semi-transparent blue corners on select
+  cornerStyle: isMobile ? mobileConfig.cornerStyle : desktopConfig.cornerStyle,
+  borderScaleFactor: isMobile ? 5 : 20,
 });
+
+// Optional: Custom Selection Handles (as explained previously)
+
+
 const canvas = new fabric.Canvas("canvas", {
   preserveObjectStacking: true,
 });
@@ -21,20 +50,11 @@ let selectedObject = null;
 let currentImageUrl = null; // variable to store the URL of the current image
 let SIZE;
 
-if (window.innerWidth <= 500) {
+if (window.innerWidth <= 600) {
   canvas.setWidth(700);
   canvas.setHeight(700);
   canvas2.setWidth(700);
   canvas2.setHeight(700);
-
-  fabric.Object.prototype.set({
-    cornerBackground: "red",
-    cornerSize: 65,
-    cornerStrokeWidth: 20, // Width of the stroke around the controls
-    transparentCorners: false,
-    selectable: true,
-    borderScaleFactor: 8,
-  });
   SIZE = 600;
 } else {
   SIZE = 2000;
@@ -63,6 +83,54 @@ $(".cross-icon").click(function (params) {
   $("#sidebar-canvas-one").hide();
 });
 
+// function inputChange(selector, targetCanvas, container) {
+//   document.querySelector(selector).addEventListener("change", (event) => {
+//     const file = event.target.files[0];
+//     currentImageUrl = URL.createObjectURL(file); // update the current image URL
+//     const imgNode = new Image();
+//     imgNode.src = currentImageUrl;
+//     imgNode.onload = () => {
+//       const img = new fabric.Image(imgNode, {
+//         angle: 0,
+//         opacity: 1,
+//       });
+//       const MAX_SIZE = SIZE;
+//       const scaleFactor = Math.min(MAX_SIZE / img.width, MAX_SIZE / img.height);
+//       const scaledWidth = img.width * scaleFactor;
+//       const scaledHeight = img.height * scaleFactor;
+
+//       img.set({
+//         left: targetCanvas.width / 2 - scaledWidth / 2,
+//         top: targetCanvas.height / 2 - scaledHeight / 2,
+//         // width: SIZE,
+//         // height: SIZE,
+//       });
+
+//       if (window.innerWidth <= 500) {
+//         img.set({
+//           left: targetCanvas.width / 2 - scaledWidth / 2,
+//           top: targetCanvas.height / 2 - scaledHeight / 2,
+//         });
+
+//         img.scaleToHeight(600);
+//         img.scaleToWidth(600);
+//       }
+
+//       // Set the clipTo function to clip the image to the visible part of the targetCanvas
+//       // img.clipTo = function (ctx) {
+//       //   ctx.rect(0, 0, targetCanvas.width, targetCanvas.height);
+//       // };
+//       targetCanvas.add(img);
+//       // Trigger click event to select the image
+//       img.setCoords();
+//       targetCanvas.setActiveObject(img);
+//       targetCanvas.renderAll();
+//       createImagePreview(currentImageUrl, img, targetCanvas, container);
+//       input.value = ""; // Clear the input field
+//     };
+//   });
+// }
+
 function inputChange(selector, targetCanvas, container) {
   document.querySelector(selector).addEventListener("change", (event) => {
     const file = event.target.files[0];
@@ -74,42 +142,43 @@ function inputChange(selector, targetCanvas, container) {
         angle: 0,
         opacity: 1,
       });
-      const MAX_SIZE = SIZE;
-      const scaleFactor = Math.min(MAX_SIZE / img.width, MAX_SIZE / img.height);
+
+      const canvasWidth = targetCanvas.getWidth();
+      const desiredWidth = canvasWidth * 0.5; // 50% of canvas width
+
+      // Calculate scaling factor based on desired width
+      const scaleFactor = desiredWidth / img.width;
+
+      // Scale the image to the desired width while maintaining aspect ratio
+      img.scale(scaleFactor);
+
+      // Calculate scaled dimensions
       const scaledWidth = img.width * scaleFactor;
       const scaledHeight = img.height * scaleFactor;
 
+      // Position the image at the center of the canvas
       img.set({
-        left: targetCanvas.width / 2 - scaledWidth / 2,
+        left: canvasWidth / 2 - scaledWidth / 2,
         top: targetCanvas.height / 2 - scaledHeight / 2,
-        // width: SIZE,
-        // height: SIZE,
       });
 
-      if (window.innerWidth <= 500) {
-        img.set({
-          left: targetCanvas.width / 2 - scaledWidth / 2,
-          top: targetCanvas.height / 2 - scaledHeight / 2,
-        });
-
-        img.scaleToHeight(600);
-        img.scaleToWidth(600);
-      }
-
-      // Set the clipTo function to clip the image to the visible part of the targetCanvas
-      // img.clipTo = function (ctx) {
-      //   ctx.rect(0, 0, targetCanvas.width, targetCanvas.height);
-      // };
+      // Add the image to the canvas
       targetCanvas.add(img);
+
       // Trigger click event to select the image
       img.setCoords();
       targetCanvas.setActiveObject(img);
       targetCanvas.renderAll();
+
+      // Create image preview
       createImagePreview(currentImageUrl, img, targetCanvas, container);
-      input.value = ""; // Clear the input field
+
+      // Clear the input field
+      input.value = "";
     };
   });
 }
+
 
 inputChange("#input", canvas, "#image-preview-container");
 inputChange("#input2", canvas2, "#image-preview-container2");
@@ -276,8 +345,8 @@ if (window.innerWidth <= 500) {
 function addText(textbox, canvas, container) {
   document.querySelector(textbox).addEventListener("click", () => {
     const text = new fabric.IText("Edit your text", {
-      left: 100,
-      top: 100,
+      left: window.innerWidth <= 500 ? 50 : 120,
+      top: window.innerWidth <= 500 ? 50 : 120,
       width: 200, // Set a specific width for the text box
       height: 100, // Set a specific height for the text box
       fontFamily: "Arial",
@@ -590,8 +659,8 @@ function movingImages(container) {
       ui.placeholder.height(placeholderHeight + 15);
       $(
         '<div class="slide-placeholder-animator" data-height="' +
-          placeholderHeight +
-          '"></div>'
+        placeholderHeight +
+        '"></div>'
       ).insertAfter(ui.placeholder);
     },
     change: function (event, ui) {
@@ -622,8 +691,8 @@ function movingImages(container) {
             placeholderHeight = ui.item.outerHeight();
             $(
               '<div class="slide-placeholder-animator" data-height="' +
-                placeholderHeight +
-                '"></div>'
+              placeholderHeight +
+              '"></div>'
             ).insertAfter(ui.placeholder);
           }
         );
