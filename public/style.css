@@ -1074,31 +1074,41 @@ tr:nth-child(even) td {
 @media screen and (min-width: 900px) {
 
   .text-font-size,
-  .resizer-slider {
+  .resizer-slider,
+  .text-font-size2,
+  .resizer-slider2 {
     display: none !important;
   }
 }
 
 .text-font-size,
-.resizer-slider {
+.resizer-slider,
+.text-font-size2,
+.resizer-slider2 {
   display: none;
   background-color: white;
   padding: 10px 5px 0px 5px;
 }
 
 .text-font-size input,
-.resizer-slider input {
+.resizer-slider input,
+.text-font-size2 input,
+.resizer-slider2 input {
   margin: 0%;
 }
 
 .text-font-size label,
-.resizer-slider label {
+.resizer-slider label,
+.text-font-size2 label,
+.resizer-slider2 label {
   font-size: 15px;
 }
 
 /* CSS for the sliders */
 .resizer-slider input[type=range],
-.text-font-size input[type=range] {
+.text-font-size input[type=range],
+.resizer-slider2 input[type=range],
+.text-font-size2 input[type=range] {
   -webkit-appearance: none;
   /* Hides the default appearance */
   width: 100%;
@@ -1118,7 +1128,9 @@ tr:nth-child(even) td {
 
 /* Style for the slider thumb */
 .resizer-slider input[type=range]::-webkit-slider-thumb,
-.text-font-size input[type=range]::-webkit-slider-thumb {
+.text-font-size input[type=range]::-webkit-slider-thumb,
+.resizer-slider2 input[type=range]::-webkit-slider-thumb,
+.text-font-size2 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   /* Hides the default thumb */
   width: 20px;
@@ -1139,7 +1151,9 @@ tr:nth-child(even) td {
 
 /* Style for the slider track */
 .resizer-slider input[type=range]::-webkit-slider-runnable-track,
-.text-font-size input[type=range]::-webkit-slider-runnable-track {
+.text-font-size input[type=range]::-webkit-slider-runnable-track,
+.resizer-slider2 input[type=range]::-webkit-slider-runnable-track,
+.text-font-size2 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   /* Sets the width of the track */
   height: 10px;
@@ -1152,14 +1166,18 @@ tr:nth-child(even) td {
 
 /* Style for the slider thumb when active */
 .resizer-slider input[type=range]:active::-webkit-slider-thumb,
-.text-font-size input[type=range]:active::-webkit-slider-thumb {
+.text-font-size input[type=range]:active::-webkit-slider-thumb,
+.resizer-slider2 input[type=range]:active::-webkit-slider-thumb,
+.text-font-size2 input[type=range]:active::-webkit-slider-thumb {
   background: #483d8b;
   /* Sets the color of the thumb when active */
 }
 
 /* Style for the slider thumb when focused */
 .resizer-slider input[type=range]:focus::-webkit-slider-thumb,
-.text-font-size input[type=range]:focus::-webkit-slider-thumb {
+.text-font-size input[type=range]:focus::-webkit-slider-thumb,
+.resizer-slider2 input[type=range]:focus::-webkit-slider-thumb,
+.text-font-size2 input[type=range]:focus::-webkit-slider-thumb {
   box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.5);
   /* Adds a shadow when focused */
 }
