@@ -1442,23 +1442,22 @@ function actualizarTabla(datos, encabezadoId) {
   document.getElementById(encabezadoId).style.display = "table-header-group";
 
   var cuerpoTabla = document.getElementById("cuerpoTabla");
-  cuerpoTabla.innerHTML = "";
+  cuerpoTabla.innerHTML = ""; // Limpiamos el contenido previo de la tabla
 
   for (var i = 0; i < datos.length; i++) {
-    var fila = cuerpoTabla.insertRow(i);
+    var fila = cuerpoTabla.insertRow(i); // Creamos una nueva fila en la tabla
+
+    // Insertamos las celdas en la fila con los datos correspondientes
     var celdaa = fila.insertCell(0);
     var celdab = fila.insertCell(1);
     var celdac = fila.insertCell(2);
     var celdad = fila.insertCell(3);
 
-    celdaa.innerHTML = datos[i].a;
-    celdab.innerHTML = datos[i].b;
-    celdac.innerHTML = datos[i].c;
-    celdad.innerHTML = datos[i].d;
-
+    // Agregamos los datos a las celdas
     celdaa.innerHTML = "<strong>" + datos[i].a + "</strong>";
     celdab.innerHTML = datos[i].b;
     celdac.innerHTML = datos[i].c;
+    celdad.innerHTML = datos[i].d;
   }
 }
 
