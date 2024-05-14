@@ -1,39 +1,12 @@
-const mobileConfig = {
-  cornerSize: 45,
-  cornerStrokeWidth: 20,
-  padding: 25,
-  cornerScalingAction: false,
-  cornerStyle: 'circle',
-  cornerStrokeColor: '#000',
-};
-
-const desktopConfig = {
-  cornerSize: 200,
-  cornerStrokeWidth: 10,
-  padding: 100,
-  cornerStrokeColor: '#9652a8',
-  cornerStyle: 'circle',
-};
-
-const isMobile = window.innerWidth <= 500; // Adjust breakpoint as needed
-
 fabric.Object.prototype.set({
-  // Mobile-Optimized Selection
-  cornerSize: isMobile ? mobileConfig.cornerSize : desktopConfig.cornerSize,
-  cornerStrokeWidth: isMobile ? mobileConfig.cornerStrokeWidth : desktopConfig.cornerStrokeWidth,
-  padding: isMobile ? mobileConfig.padding : desktopConfig.padding,
-  transparentCorners: false, // Show clear selection indicators
+  cornerColor: "#9652a8",
+  cornerSize: 200,
+  cornerStrokeWidth: 200, // Width of the stroke around the controls
+  transparentCorners: false,
   selectable: true,
-  cornerStrokeColor: isMobile ? mobileConfig.cornerStrokeColor : desktopConfig.cornerStrokeColor,
-  // Improved User Experience (Optional Visual Feedback)
-  borderColor: '#9652a8', // Semi-transparent blue border on select
-  cornerColor: '#9652a8', // Semi-transparent blue corners on select
-  // cornerStyle: isMobile ? mobileConfig.cornerStyle : desktopConfig.cornerStyle,
-  borderScaleFactor: isMobile ? 7 : 40,
-  cornerScalingAction: false,
+  borderColor: "#9652a8",
+  borderScaleFactor: 20,
 });
-
-
 const canvas = new fabric.Canvas("canvas", {
   preserveObjectStacking: true,
 });
@@ -53,6 +26,15 @@ if (window.innerWidth <= 500) {
   canvas.setHeight(700);
   canvas2.setWidth(700);
   canvas2.setHeight(700);
+
+  fabric.Object.prototype.set({
+    cornerBackground: "red",
+    cornerSize: 65,
+    cornerStrokeWidth: 20, // Width of the stroke around the controls
+    transparentCorners: false,
+    selectable: true,
+    borderScaleFactor: 8,
+  });
   SIZE = 600;
 } else {
   SIZE = 2000;
@@ -81,8 +63,6 @@ $(".cross-icon").click(function (params) {
   $("#sidebar-canvas-one").hide();
 });
 
-
-
 function inputChange(selector, targetCanvas, container) {
   document.querySelector(selector).addEventListener("change", (event) => {
     const file = event.target.files[0];
@@ -94,45 +74,42 @@ function inputChange(selector, targetCanvas, container) {
         angle: 0,
         opacity: 1,
       });
-
-      const canvasWidth = targetCanvas.getWidth();
-      const desiredWidth = canvasWidth * 0.5; // 50% of canvas width
-
-      // Calculate scaling factor based on desired width
-      const scaleFactor = desiredWidth / img.width;
-
-      // Scale the image to the desired width while maintaining aspect ratio
-      img.scale(scaleFactor);
-
-      // Calculate scaled dimensions
+      const MAX_SIZE = SIZE;
+      const scaleFactor = Math.min(MAX_SIZE / img.width, MAX_SIZE / img.height);
       const scaledWidth = img.width * scaleFactor;
       const scaledHeight = img.height * scaleFactor;
 
-      // Position the image at the center of the canvas
       img.set({
-        left: canvasWidth / 2 - scaledWidth / 2,
+        left: targetCanvas.width / 2 - scaledWidth / 2,
         top: targetCanvas.height / 2 - scaledHeight / 2,
+        // width: SIZE,
+        // height: SIZE,
       });
 
-      // Add the image to the canvas
-      targetCanvas.add(img);
+      if (window.innerWidth <= 500) {
+        img.set({
+          left: targetCanvas.width / 2 - scaledWidth / 2,
+          top: targetCanvas.height / 2 - scaledHeight / 2,
+        });
 
+        img.scaleToHeight(600);
+        img.scaleToWidth(600);
+      }
+
+      // Set the clipTo function to clip the image to the visible part of the targetCanvas
+      // img.clipTo = function (ctx) {
+      //   ctx.rect(0, 0, targetCanvas.width, targetCanvas.height);
+      // };
+      targetCanvas.add(img);
       // Trigger click event to select the image
       img.setCoords();
       targetCanvas.setActiveObject(img);
       targetCanvas.renderAll();
-
-      // Create image preview
       createImagePreview(currentImageUrl, img, targetCanvas, container);
-
-      // Clear the input field
-      input.value = "";
+      input.value = ""; // Clear the input field
     };
   });
 }
-
-
-
 
 inputChange("#input", canvas, "#image-preview-container");
 inputChange("#input2", canvas2, "#image-preview-container2");
@@ -299,8 +276,8 @@ if (window.innerWidth <= 500) {
 function addText(textbox, canvas, container) {
   document.querySelector(textbox).addEventListener("click", () => {
     const text = new fabric.IText("Edit your text", {
-      left: window.innerWidth <= 500 ? 50 : 120,
-      top: window.innerWidth <= 500 ? 50 : 120,
+      left: 100,
+      top: 100,
       width: 200, // Set a specific width for the text box
       height: 100, // Set a specific height for the text box
       fontFamily: "Arial",
@@ -613,8 +590,8 @@ function movingImages(container) {
       ui.placeholder.height(placeholderHeight + 15);
       $(
         '<div class="slide-placeholder-animator" data-height="' +
-        placeholderHeight +
-        '"></div>'
+          placeholderHeight +
+          '"></div>'
       ).insertAfter(ui.placeholder);
     },
     change: function (event, ui) {
@@ -645,8 +622,8 @@ function movingImages(container) {
             placeholderHeight = ui.item.outerHeight();
             $(
               '<div class="slide-placeholder-animator" data-height="' +
-              placeholderHeight +
-              '"></div>'
+                placeholderHeight +
+                '"></div>'
             ).insertAfter(ui.placeholder);
           }
         );
@@ -914,7 +891,7 @@ async function handleUpload(selectedSizes, shirtColor) {
     const uploadResponse = await uploadImage();
 
     const response = await fetch(
-      "https://desyy.com/create-checkout-session",
+      "https://desyy.onrender.com/create-checkout-session",
       {
         method: "POST",
         headers: {
@@ -1004,7 +981,7 @@ async function uploadImage() {
   try {
     // Send the front side image data to backend and wait for completion
     if (hasImagesForFrontCanvas || hasTextForFrontCanvas) {
-      const frontResponse = await fetch("https://desyy.com/upload", {
+      const frontResponse = await fetch("https://desyy.onrender.com/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1021,7 +998,7 @@ async function uploadImage() {
 
     if (hasImagesForBackCanvas || hasTextForBackCanvas) {
       // Send the back side image data to backend and wait for completion
-      const backResponse = await fetch("https://desyy.com/uploadBack", {
+      const backResponse = await fetch("https://desyy.onrender.com/uploadBack", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1465,22 +1442,23 @@ function actualizarTabla(datos, encabezadoId) {
   document.getElementById(encabezadoId).style.display = "table-header-group";
 
   var cuerpoTabla = document.getElementById("cuerpoTabla");
-  cuerpoTabla.innerHTML = ""; // Limpiamos el contenido previo de la tabla
+  cuerpoTabla.innerHTML = "";
 
   for (var i = 0; i < datos.length; i++) {
-    var fila = cuerpoTabla.insertRow(i); // Creamos una nueva fila en la tabla
-
-    // Insertamos las celdas en la fila con los datos correspondientes
+    var fila = cuerpoTabla.insertRow(i);
     var celdaa = fila.insertCell(0);
     var celdab = fila.insertCell(1);
     var celdac = fila.insertCell(2);
     var celdad = fila.insertCell(3);
 
-    // Agregamos los datos a las celdas
-    celdaa.innerHTML = "<strong>" + datos[i].a + "</strong>";
+    celdaa.innerHTML = datos[i].a;
     celdab.innerHTML = datos[i].b;
     celdac.innerHTML = datos[i].c;
     celdad.innerHTML = datos[i].d;
+
+    celdaa.innerHTML = "<strong>" + datos[i].a + "</strong>";
+    celdab.innerHTML = datos[i].b;
+    celdac.innerHTML = datos[i].c;
   }
 }
 
@@ -1493,153 +1471,5 @@ function toggleShirtInfo() {
   } else {
     shirtInfo.style.display = "none";
     shirtInfo.parentElement.style.height = "auto";
-  }
-}
-
-// Add event listeners to the range sliders
-const widthSlider = document.getElementById('widthResizer');
-const heightSlider = document.getElementById('heightResizer');
-const fontSizeSlider = document.getElementById('fontSize');
-const fontSizeSliderCon = document.querySelector('.text-font-size');
-const sizeSliderCon = document.querySelectorAll('.resizer-slider');
-const widthSlider2 = document.getElementById('widthResizer2');
-const heightSlider2 = document.getElementById('heightResizer2');
-const fontSizeSlider2 = document.getElementById('fontSize2');
-const fontSizeSliderCon2 = document.querySelector('.text-font-size2');
-const sizeSliderCon2 = document.querySelectorAll('.resizer-slider2');
-
-widthSlider.addEventListener('input', function () {
-
-  let activeObject = canvas.getActiveObject();
-  if (!activeObject) return;
-  if (activeObject.type === 'image') {
-    //  change image scalingX 
-    activeObject.set({
-      scaleX: this.value / activeObject.width
-    })
-    activeObject.setCoords();
-    canvas.renderAll();
-  }
-});
-widthSlider2.addEventListener('input', function () {
-
-  let activeObject = canvas2.getActiveObject();
-  if (!activeObject) return;
-  if (activeObject.type === 'image') {
-    //  change image scalingX 
-    activeObject.set({
-      scaleX: this.value / activeObject.width
-    })
-    activeObject.setCoords();
-    canvas2.renderAll();
-  }
-});
-
-heightSlider.addEventListener('input', function () {
-  let activeObject = canvas.getActiveObject();
-  if (!activeObject) return;
-  if (activeObject.type === 'image') {
-    //  change image scalingY 
-    activeObject.set({
-      scaleY: this.value / activeObject.height
-    })
-    activeObject.setCoords();
-    canvas.renderAll();
-  }
-});
-heightSlider2.addEventListener('input', function () {
-  let activeObject = canvas2.getActiveObject();
-  if (!activeObject) return;
-  if (activeObject.type === 'image') {
-    //  change image scalingY 
-    activeObject.set({
-      scaleY: this.value / activeObject.height
-    })
-    activeObject.setCoords();
-    canvas2.renderAll();
-  }
-});
-
-fontSizeSlider.addEventListener('input', function () {
-  const fontSizeValue = parseInt(this.value);
-  let activeObject = canvas.getActiveObject();
-  if (!activeObject) return;
-  if (activeObject.type === 'i-text') {
-    activeObject.set('fontSize', fontSizeValue);
-    canvas.renderAll();
-  }
-});
-fontSizeSlider2.addEventListener('input', function () {
-  const fontSizeValue = parseInt(this.value);
-  let activeObject = canvas2.getActiveObject();
-  if (!activeObject) return;
-  if (activeObject.type === 'i-text') {
-    activeObject.set('fontSize', fontSizeValue);
-    canvas2.renderAll();
-  }
-});
-
-// Change slider values when selecting any object
-canvas.on('selection:created', selectAction);
-canvas.on('selection:updated', selectAction);
-canvas.on('selection:cleared', clearAction);
-canvas2.on('selection:created', selectAction2);
-canvas2.on('selection:updated', selectAction2);
-canvas2.on('selection:cleared', clearAction2);
-
-function clearAction() {
-  fontSizeSliderCon.style.display = 'none';
-  sizeSliderCon.forEach((slider) => {
-    slider.style.display = 'none';
-  });
-}
-function clearAction2() {
-  fontSizeSliderCon2.style.display = 'none';
-  sizeSliderCon2.forEach((slider) => {
-    slider.style.display = 'none';
-  });
-}
-function selectAction(e) {
-  const activeObject = e.selected[0];
-  if (activeObject) {
-
-    if (activeObject.type === 'i-text') {
-      fontSizeSliderCon.style.display = 'block';
-      sizeSliderCon.forEach((slider) => {
-        slider.style.display = 'none';
-      });
-      fontSizeSlider.value = activeObject.fontSize;
-    } else {
-      fontSizeSliderCon.style.display = 'none';
-      sizeSliderCon.forEach((slider) => {
-        slider.style.display = 'block';
-      });
-
-      widthSlider.value = activeObject.width * activeObject.scaleX;
-      heightSlider.value = activeObject.height * activeObject.scaleY;
-
-    }
-  }
-}
-function selectAction2(e) {
-  const activeObject = e.selected[0];
-  if (activeObject) {
-
-    if (activeObject.type === 'i-text') {
-      fontSizeSliderCon2.style.display = 'block';
-      sizeSliderCon2.forEach((slider) => {
-        slider.style.display = 'none';
-      });
-      fontSizeSlider2.value = activeObject.fontSize;
-    } else {
-      fontSizeSliderCon2.style.display = 'none';
-      sizeSliderCon2.forEach((slider) => {
-        slider.style.display = 'block';
-      });
-
-      widthSlider2.value = activeObject.width * activeObject.scaleX;
-      heightSlider2.value = activeObject.height * activeObject.scaleY;
-
-    }
   }
 }
