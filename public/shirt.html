@@ -115,20 +115,6 @@
                 </form>
             </div>
             <div>
-                <div class="resizer-slider">
-                    <label for="widthResizer">Width</label>
-                    <input type="range" id="widthResizer" min="10" max="1000">
-                </div>
-
-                <div class="resizer-slider">
-                    <label for="heightResizer">Height</label>
-                    <input type="range" id="heightResizer" min="10" max="1000">
-                </div>
-
-                <div class="text-font-size">
-                    <label for="fontSize">Font Size</label>
-                    <input type="range" id="fontSize" min="10" max="500" step="5" value="">
-                </div>
                 <div class="flex buttons-container">
                     <button class="btn" id="addTextBtn">Add Text</button>
                     <button class="btn" onclick="document.getElementById('input').click()">Add Image</button>
@@ -333,20 +319,6 @@
                 </form>
             </div>
             <div>
-                <div class="resizer-slider2">
-                    <label for="widthResizer2">Width</label>
-                    <input type="range" id="widthResizer2" min="10" max="1000">
-                </div>
-
-                <div class="resizer-slider2">
-                    <label for="heightResizer2">Height</label>
-                    <input type="range" id="heightResizer2" min="10" max="1000">
-                </div>
-
-                <div class="text-font-size2">
-                    <label for="fontSize2">Font Size</label>
-                    <input type="range" id="fontSize2" min="10" max="500" step="5" value="">
-                </div>
                 <div class="flex buttons-container">
                     <button class="btn" id="addTextBtn2">Add Text</button>
                     <button class="btn" onclick="document.getElementById('input2').click()">Add Image</button>
@@ -638,8 +610,8 @@
                     </div>
                     <div id="contador">1/</div>
                     <button onclick="moverIzquierda()" class="botonmoverizq">
-                        << /button> <button onclick="moverDerecha()" class="botonmoverder">>
-                            </button>
+                        <</button> <button onclick="moverDerecha()" class="botonmoverder">>
+                    </button>
                 </div>
             </main>
 
@@ -661,6 +633,7 @@
 
             <div class="medida">
                 <button onclick="mostrarDatos1()" id="boton1" class="botones">INCH</button>
+                <button onclick="mostrarDatos2()" id="boton2" class="botones">CENTIMETERS</button>
             </div>
 
             <div class="size">
@@ -778,20 +751,6 @@
         integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="script.js"></script>
-
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-K71KHZX326"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
-            gtag('config', 'G-K71KHZX326');
-        });
-    </script>
-
 </body>
 
 </html>
