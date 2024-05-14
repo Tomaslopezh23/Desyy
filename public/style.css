@@ -391,7 +391,7 @@ img {
 .shirt-size-menu h1 {
   padding: 0.5em 0;
   width: auto;
-  color: #000;
+  color:#000;
   font-size: 2rem;
 }
 
@@ -444,101 +444,77 @@ img {
   background-color: #f1f1f3;
   color: #000;
 }
-
 #Black {
   background-color: black;
 }
-
 #Charcoal {
   background-color: #575459;
 }
-
 #Cornsilk {
   background-color: #f2e988;
   color: #000;
 }
-
 #Dark-Chocolate {
   background-color: #382d29;
 }
-
 #DarkHeather {
   background-color: #454547;
 }
-
 #Gold {
   background-color: #fbb023;
 }
-
 #Heather-Indigo {
   background-color: #667288;
 }
-
 #green {
   background-color: #6ed399;
 }
-
 #Heather-Navy {
   background-color: #4f515d;
 }
-
 #Heather-Red {
   background-color: #d6505d;
 }
-
 #Heather-Royal {
   background-color: #7785ce;
 }
-
 #Ice-Grey {
   background-color: #cecccb;
 }
-
 #dark-green {
   background-color: #1e8c45;
 }
-
 #Light-Blue {
   background-color: #ccddef;
 }
-
 #Military-Green {
   background-color: #575a3f;
 }
-
 #Natural {
   background-color: #faf1de;
   color: #000;
 }
-
 #Navy {
   background-color: #282d40;
 }
-
 #Orange {
   background-color: #e3592a;
 }
-
 #Red {
   background-color: #c03137;
 }
-
 #Royal {
   background-color: #1c4d92;
 }
-
 #Sand {
   background-color: #d4c9b7;
 }
-
 #Sapphire {
   background-color: #1877af;
 }
-
 #Sport-Grey {
   background-color: #afafb1;
 }
-
 #Tropical-Blue {
   background-color: #188fa3;
 }
@@ -659,7 +635,6 @@ tr:nth-child(even) td {
 }
 
 @media (max-width: 1250px) {
-
   .canvas-div,
   .canvas-div-2 {
     position: static;
@@ -685,7 +660,6 @@ tr:nth-child(even) td {
   #fontsize-label {
     margin-top: 1em;
   }
-
   #fontFamilySelect {
     margin-bottom: 1em;
   }
@@ -734,7 +708,6 @@ tr:nth-child(even) td {
   #text-preview {
     display: none !important;
   }
-
   .button-div {
     width: 100%;
   }
@@ -770,7 +743,6 @@ tr:nth-child(even) td {
 }
 
 @media (max-width: 700px) {
-
   .canvas-div,
   .canvas-div-2 {
     width: 500px;
@@ -839,7 +811,6 @@ tr:nth-child(even) td {
 }
 
 @media (max-width: 500px) {
-
   .canvas-div,
   .canvas-div-2 {
     width: 380px;
@@ -856,7 +827,7 @@ tr:nth-child(even) td {
   }
 
   #canvas2,
-  #canvas2+canvas {
+  #canvas2 + canvas {
     width: 221px !important;
     height: 256px !important;
   }
@@ -905,7 +876,6 @@ tr:nth-child(even) td {
   .move-icon.move-icon {
     display: none;
   }
-
   .delete-icon {
     margin: 0;
   }
@@ -998,7 +968,6 @@ tr:nth-child(even) td {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
@@ -1054,8 +1023,7 @@ tr:nth-child(even) td {
 
 /* Estilos para cambiar el color de los botones al pasar el mouse */
 .modal-button:hover {
-  background-color: #7d3e8c;
-  /* Cambiar al color deseado */
+  background-color: #7d3e8c; /* Cambiar al color deseado */
 }
 
 /* Estilos para el contenedor de botones */
@@ -1067,117 +1035,4 @@ tr:nth-child(even) td {
   .modal-content {
     width: 90%;
   }
-
-
-}
-
-@media screen and (min-width: 900px) {
-
-  .text-font-size,
-  .resizer-slider,
-  .text-font-size2,
-  .resizer-slider2 {
-    display: none !important;
-  }
-}
-
-.text-font-size,
-.resizer-slider,
-.text-font-size2,
-.resizer-slider2 {
-  display: none;
-  background-color: white;
-  padding: 10px 5px 0px 5px;
-}
-
-.text-font-size input,
-.resizer-slider input,
-.text-font-size2 input,
-.resizer-slider2 input {
-  margin: 0%;
-}
-
-.text-font-size label,
-.resizer-slider label,
-.text-font-size2 label,
-.resizer-slider2 label {
-  font-size: 15px;
-}
-
-/* CSS for the sliders */
-.resizer-slider input[type=range],
-.text-font-size input[type=range],
-.resizer-slider2 input[type=range],
-.text-font-size2 input[type=range] {
-  -webkit-appearance: none;
-  /* Hides the default appearance */
-  width: 100%;
-  /* Makes sure the range takes up the full width */
-  height: 20px;
-  /* Sets the height of the slider */
-  background: #ddd;
-  /* Sets the background color of the slider track */
-  border-radius: 10px;
-  /* Rounds the corners */
-  outline: none;
-  /* Removes the outline */
-  /* Adds some margin at the bottom */
-  position: relative;
-  /* Allows positioning of the thumb */
-}
-
-/* Style for the slider thumb */
-.resizer-slider input[type=range]::-webkit-slider-thumb,
-.text-font-size input[type=range]::-webkit-slider-thumb,
-.resizer-slider2 input[type=range]::-webkit-slider-thumb,
-.text-font-size2 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  /* Hides the default thumb */
-  width: 20px;
-  /* Sets the width of the thumb */
-  height: 20px;
-  /* Sets the height of the thumb */
-  background: #6a5acd;
-  /* Sets the color of the thumb */
-  border-radius: 50%;
-  /* Makes the thumb round */
-  cursor: pointer;
-  /* Changes cursor to pointer on hover */
-  position: relative;
-  /* Allows positioning */
-  top: -5px;
-  /* Centers the thumb vertically */
-}
-
-/* Style for the slider track */
-.resizer-slider input[type=range]::-webkit-slider-runnable-track,
-.text-font-size input[type=range]::-webkit-slider-runnable-track,
-.resizer-slider2 input[type=range]::-webkit-slider-runnable-track,
-.text-font-size2 input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  /* Sets the width of the track */
-  height: 10px;
-  /* Sets the height of the track */
-  background: linear-gradient(to right, #6a5acd, #ddd);
-  /* Sets a gradient from blue to gray */
-  border-radius: 5px;
-  /* Rounds the corners */
-}
-
-/* Style for the slider thumb when active */
-.resizer-slider input[type=range]:active::-webkit-slider-thumb,
-.text-font-size input[type=range]:active::-webkit-slider-thumb,
-.resizer-slider2 input[type=range]:active::-webkit-slider-thumb,
-.text-font-size2 input[type=range]:active::-webkit-slider-thumb {
-  background: #483d8b;
-  /* Sets the color of the thumb when active */
-}
-
-/* Style for the slider thumb when focused */
-.resizer-slider input[type=range]:focus::-webkit-slider-thumb,
-.text-font-size input[type=range]:focus::-webkit-slider-thumb,
-.resizer-slider2 input[type=range]:focus::-webkit-slider-thumb,
-.text-font-size2 input[type=range]:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.5);
-  /* Adds a shadow when focused */
 }
