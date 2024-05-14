@@ -1,18 +1,16 @@
 const mobileConfig = {
-  // cornerSize: 45, 
-  // cornerStrokeWidth: 20,   
-  // padding: 12,     
-  cornerSize: 30,            // Increase corner size for touch
-  cornerStrokeWidth: 2,      // Reduce stroke width for smoother appearance
-  padding: 10,
-  // cornerScalingAction: false,
+  cornerSize: 45,
+  cornerStrokeWidth: 20,
+  padding: 25,
+  cornerScalingAction: false,
   cornerStyle: 'circle',
+  cornerStrokeColor: '#000',
 };
 
 const desktopConfig = {
-  cornerSize: 150,
+  cornerSize: 200,
   cornerStrokeWidth: 10,
-  padding: 50,
+  padding: 100,
   cornerStrokeColor: '#9652a8',
   cornerStyle: 'circle',
 };
@@ -26,14 +24,14 @@ fabric.Object.prototype.set({
   padding: isMobile ? mobileConfig.padding : desktopConfig.padding,
   transparentCorners: false, // Show clear selection indicators
   selectable: true,
+  cornerStrokeColor: isMobile ? mobileConfig.cornerStrokeColor : desktopConfig.cornerStrokeColor,
   // Improved User Experience (Optional Visual Feedback)
   borderColor: '#9652a8', // Semi-transparent blue border on select
   cornerColor: '#9652a8', // Semi-transparent blue corners on select
-  cornerStyle: isMobile ? mobileConfig.cornerStyle : desktopConfig.cornerStyle,
-  borderScaleFactor: isMobile ? 5 : 20,
+  // cornerStyle: isMobile ? mobileConfig.cornerStyle : desktopConfig.cornerStyle,
+  borderScaleFactor: isMobile ? 7 : 40,
+  cornerScalingAction: false,
 });
-
-// Optional: Custom Selection Handles (as explained previously)
 
 
 const canvas = new fabric.Canvas("canvas", {
@@ -83,53 +81,7 @@ $(".cross-icon").click(function (params) {
   $("#sidebar-canvas-one").hide();
 });
 
-// function inputChange(selector, targetCanvas, container) {
-//   document.querySelector(selector).addEventListener("change", (event) => {
-//     const file = event.target.files[0];
-//     currentImageUrl = URL.createObjectURL(file); // update the current image URL
-//     const imgNode = new Image();
-//     imgNode.src = currentImageUrl;
-//     imgNode.onload = () => {
-//       const img = new fabric.Image(imgNode, {
-//         angle: 0,
-//         opacity: 1,
-//       });
-//       const MAX_SIZE = SIZE;
-//       const scaleFactor = Math.min(MAX_SIZE / img.width, MAX_SIZE / img.height);
-//       const scaledWidth = img.width * scaleFactor;
-//       const scaledHeight = img.height * scaleFactor;
 
-//       img.set({
-//         left: targetCanvas.width / 2 - scaledWidth / 2,
-//         top: targetCanvas.height / 2 - scaledHeight / 2,
-//         // width: SIZE,
-//         // height: SIZE,
-//       });
-
-//       if (window.innerWidth <= 500) {
-//         img.set({
-//           left: targetCanvas.width / 2 - scaledWidth / 2,
-//           top: targetCanvas.height / 2 - scaledHeight / 2,
-//         });
-
-//         img.scaleToHeight(600);
-//         img.scaleToWidth(600);
-//       }
-
-//       // Set the clipTo function to clip the image to the visible part of the targetCanvas
-//       // img.clipTo = function (ctx) {
-//       //   ctx.rect(0, 0, targetCanvas.width, targetCanvas.height);
-//       // };
-//       targetCanvas.add(img);
-//       // Trigger click event to select the image
-//       img.setCoords();
-//       targetCanvas.setActiveObject(img);
-//       targetCanvas.renderAll();
-//       createImagePreview(currentImageUrl, img, targetCanvas, container);
-//       input.value = ""; // Clear the input field
-//     };
-//   });
-// }
 
 function inputChange(selector, targetCanvas, container) {
   document.querySelector(selector).addEventListener("change", (event) => {
@@ -178,6 +130,8 @@ function inputChange(selector, targetCanvas, container) {
     };
   });
 }
+
+
 
 
 inputChange("#input", canvas, "#image-preview-container");
@@ -1539,5 +1493,96 @@ function toggleShirtInfo() {
   } else {
     shirtInfo.style.display = "none";
     shirtInfo.parentElement.style.height = "auto";
+  }
+}
+
+// Add event listeners to the range sliders
+const widthSlider = document.getElementById('widthResizer');
+const heightSlider = document.getElementById('heightResizer');
+const fontSizeSlider = document.getElementById('fontSize');
+const fontSizeSliderCon = document.querySelector('.text-font-size');
+const sizeSliderCon = document.querySelectorAll('.resizer-slider');
+
+widthSlider.addEventListener('input', function () {
+  let activeObject = canvas.getActiveObject();
+  if (!activeObject) return;
+  if (activeObject.type === 'image') {
+    //  change image scalingX 
+    activeObject.set({
+      scaleX: this.value / activeObject.width
+    })
+    activeObject.setCoords();
+    canvas.renderAll();
+  }
+});
+
+heightSlider.addEventListener('input', function () {
+  let activeObject = canvas.getActiveObject();
+  if (!activeObject) return;
+  if (activeObject.type === 'image') {
+    //  change image scalingY 
+    activeObject.set({
+      scaleY: this.value / activeObject.height
+    })
+    activeObject.setCoords();
+    canvas.renderAll();
+  }
+});
+
+fontSizeSlider.addEventListener('input', function () {
+  const fontSizeValue = parseInt(this.value);
+  let activeObject = canvas.getActiveObject();
+  if (!activeObject) return;
+  if (activeObject.type === 'i-text') {
+    activeObject.set('fontSize', fontSizeValue);
+    canvas.renderAll();
+  }
+
+});
+
+// Change slider values when selecting any object
+canvas.on('selection:created', selectAction);
+canvas.on('selection:updated', selectAction);
+canvas.on('selection:cleared', clearAction);
+
+function clearAction() {
+  fontSizeSliderCon.style.display = 'none';
+  sizeSliderCon.forEach((slider) => {
+    slider.style.display = 'none';
+  });
+
+}
+function selectAction(e) {
+  console.log("selected");
+  const activeObject = e.selected[0];
+  if (activeObject) {
+
+    if (activeObject.type === 'i-text') {
+      fontSizeSliderCon.style.display = 'block';
+      sizeSliderCon.forEach((slider) => {
+        slider.style.display = 'none';
+      });
+      fontSizeSlider.value = activeObject.fontSize;
+    } else {
+      fontSizeSliderCon.style.display = 'none';
+      sizeSliderCon.forEach((slider) => {
+        slider.style.display = 'block';
+      });
+
+      widthSlider.value = activeObject.width * activeObject.scaleX;
+      heightSlider.value = activeObject.height * activeObject.scaleY;
+
+      // widthSlider.min = activeObject.width / 2;
+      // heightSlider.min = activeObject.height / 2;
+
+      // widthSlider.step = activeObject.width / 10;
+      // heightSlider.step = activeObject.height / 10;
+
+
+
+      // widthSlider.max = activeObject.width * 2;
+      // heightSlider.max = activeObject.height * 2;
+
+    }
   }
 }
