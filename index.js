@@ -19,7 +19,7 @@ app.use(
 
 let frontSideSecureUrl = "";
 let backSideSecureUrl = "";
-let backSideDesign = false;
+let hasBothSides = false;
 
 // Get the current date
 var currentDate = new Date();
@@ -45,7 +45,7 @@ var formattedExpectedDeliveryDate = expectedDeliveryDate
 
 app.use(express.json({ limit: "50mb" }));
 
-const YOUR_DOMAIN = "https://desyy.com";
+const YOUR_DOMAIN = "https://desyy.onrender.com";
 // const YOUR_DOMAIN = "http://localhost:4242";
 
 const cloudinary = require("cloudinary").v2;
@@ -99,6 +99,7 @@ app.post("/uploadBack", (req, res) => {
 });
 
 app.post("/create-checkout-session", async (req, res) => {
+  hasBothSides = false;
   try {
     const {
       imageSrc,
@@ -110,15 +111,25 @@ app.post("/create-checkout-session", async (req, res) => {
       hasTextsForBackCanvas,
     } = req.body;
 
+    if (!hasImagesForFrontCanvas && !hasTextsForFrontCanvas) {
+      frontSideSecureUrl = "none";
+    }
+
+    if (!hasImagesForBackCanvas && !hasTextsForBackCanvas) {
+      backSideSecureUrl = "none";
+    }
+
     if (
       (hasImagesForFrontCanvas || hasTextsForFrontCanvas) &&
       (hasImagesForBackCanvas || hasTextsForBackCanvas)
     ) {
       console.log("RAN");
-      backSideDesign = true;
+      hasBothSides = true;
     }
 
     const sum = Object.values(sizes).reduce((acc, value) => acc + value, 0);
+
+    console.log({ frontSideSecureUrl, backSideSecureUrl });
 
     // Create a Checkout session with the selected image and quantity
     const session = await stripe.checkout.sessions.create(
@@ -126,7 +137,7 @@ app.post("/create-checkout-session", async (req, res) => {
         line_items: [
           {
             price_data: {
-              unit_amount: backSideDesign ? 2499 : 2499,
+              unit_amount: hasBothSides ? 3499 : 2499,
               product_data: {
                 name: "T-Shirt",
                 description: "Awesome T-Shirt",
