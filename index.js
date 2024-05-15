@@ -126,7 +126,7 @@ app.post("/create-checkout-session", async (req, res) => {
         line_items: [
           {
             price_data: {
-              unit_amount: backSideDesign ? 1950 : 1950,
+              unit_amount: backSideDesign ? 2499 : 2499,
               product_data: {
                 name: "T-Shirt",
                 description: "Awesome T-Shirt",
