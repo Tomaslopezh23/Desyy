@@ -1225,7 +1225,7 @@ function addDesignToShirt2(callback) {
   domtoimage
     .toJpeg(node, param)
     .then(function (dataUrl) {
-      convertedBackUrl = dataUrl;
+      // convertedBackUrl = dataUrl;
       const blob = base64ToBlob(dataUrl);
       convertedBackUrl = blobToPng(blob);
       openModal();
@@ -1434,7 +1434,7 @@ function mostrarDatos1() {
   actualizarTabla(datos, "encabezado1");
   // Resaltar el botón seleccionado
   document.getElementById("boton1").classList.add("active");
-  document.getElementById("boton2").classList.remove("active");
+  // document.getElementById("boton2").classList.remove("active");
 }
 
 // Función para mostrar datos 2
