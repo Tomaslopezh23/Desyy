@@ -866,7 +866,7 @@ function hasText(canvas) {
 }
 
 canvas.on("mouse:down", function (event) {
-  hasImagesForFrontCanvas = hasImages(canvas || false);
+  hasImagesForFrontCanvas = hasImages(canvas) || false;
   hasTextForFrontCanvas = hasText(canvas) || false;
 });
 
@@ -876,7 +876,7 @@ canvas2.on("mouse:down", function (event) {
 });
 
 canvas.on("selection:cleared", function (event) {
-  hasImagesForFrontCanvas = hasImages(canvas || false);
+  hasImagesForFrontCanvas = hasImages(canvas) || false;
   hasTextForFrontCanvas = hasText(canvas) || false;
 });
 
@@ -891,7 +891,7 @@ async function handleUpload(selectedSizes, shirtColor) {
     const uploadResponse = await uploadImage();
 
     const response = await fetch(
-      "https://desyy.com/create-checkout-session",
+      "http://localhost:4242/create-checkout-session",
       {
         method: "POST",
         headers: {
@@ -981,7 +981,7 @@ async function uploadImage() {
   try {
     // Send the front side image data to backend and wait for completion
     if (hasImagesForFrontCanvas || hasTextForFrontCanvas) {
-      const frontResponse = await fetch("https://desyy.com/upload", {
+      const frontResponse = await fetch("http://localhost:4242/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -998,7 +998,7 @@ async function uploadImage() {
 
     if (hasImagesForBackCanvas || hasTextForBackCanvas) {
       // Send the back side image data to backend and wait for completion
-      const backResponse = await fetch("https://desyy.com/uploadBack", {
+      const backResponse = await fetch("http://localhost:4242/uploadBack", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1076,6 +1076,25 @@ function selectAllTextObjects() {
 // Call selectAllTextObjects function whenever a selection is created on the canvas
 canvas.on("selection:created", selectAllTextObjects);
 
+function base64ToBlob(base64String) {
+  // Split the base64 string into two parts
+  const parts = base64String.split(";base64,");
+  const contentType = parts[0].split(":")[1];
+  const raw = window.atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+
+  return new Blob([uInt8Array], { type: contentType });
+}
+
+function blobToPng(blob) {
+  return URL.createObjectURL(blob);
+}
+
 function addDesignToShirt(callback) {
   $("#holaBtn").click();
   $(".shirtSize").hide();
@@ -1128,7 +1147,8 @@ function addDesignToShirt(callback) {
   domtoimage
     .toJpeg(node, param)
     .then(function (dataUrl) {
-      convertedFrontUrl = dataUrl;
+      const blob = base64ToBlob(dataUrl);
+      convertedFrontUrl = blobToPng(blob);
       if (hasImagesForFrontCanvas || hasTextForFrontCanvas) {
         document.querySelector("#shirtDesignFront").src = convertedFrontUrl;
         document.querySelector("#shirtDesignFront").style.display = "block";
@@ -1206,6 +1226,8 @@ function addDesignToShirt2(callback) {
     .toJpeg(node, param)
     .then(function (dataUrl) {
       convertedBackUrl = dataUrl;
+      const blob = base64ToBlob(dataUrl);
+      convertedBackUrl = blobToPng(blob);
       openModal();
       $(".loading-modal").hide();
       if (hasImagesForBackCanvas || hasTextForBackCanvas) {
@@ -1442,22 +1464,23 @@ function actualizarTabla(datos, encabezadoId) {
   document.getElementById(encabezadoId).style.display = "table-header-group";
 
   var cuerpoTabla = document.getElementById("cuerpoTabla");
-  cuerpoTabla.innerHTML = ""; // Limpiamos el contenido previo de la tabla
+  cuerpoTabla.innerHTML = "";
 
   for (var i = 0; i < datos.length; i++) {
-    var fila = cuerpoTabla.insertRow(i); // Creamos una nueva fila en la tabla
-
-    // Insertamos las celdas en la fila con los datos correspondientes
+    var fila = cuerpoTabla.insertRow(i);
     var celdaa = fila.insertCell(0);
     var celdab = fila.insertCell(1);
     var celdac = fila.insertCell(2);
     var celdad = fila.insertCell(3);
 
-    // Agregamos los datos a las celdas
-    celdaa.innerHTML = "<strong>" + datos[i].a + "</strong>";
+    celdaa.innerHTML = datos[i].a;
     celdab.innerHTML = datos[i].b;
     celdac.innerHTML = datos[i].c;
     celdad.innerHTML = datos[i].d;
+
+    celdaa.innerHTML = "<strong>" + datos[i].a + "</strong>";
+    celdab.innerHTML = datos[i].b;
+    celdac.innerHTML = datos[i].c;
   }
 }
 
