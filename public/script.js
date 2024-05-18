@@ -1076,24 +1076,6 @@ function selectAllTextObjects() {
 // Call selectAllTextObjects function whenever a selection is created on the canvas
 canvas.on("selection:created", selectAllTextObjects);
 
-function base64ToBlob(base64String) {
-  // Split the base64 string into two parts
-  const parts = base64String.split(";base64,");
-  const contentType = parts[0].split(":")[1];
-  const raw = window.atob(parts[1]);
-  const rawLength = raw.length;
-  const uInt8Array = new Uint8Array(rawLength);
-
-  for (let i = 0; i < rawLength; ++i) {
-    uInt8Array[i] = raw.charCodeAt(i);
-  }
-
-  return new Blob([uInt8Array], { type: contentType });
-}
-
-function blobToPng(blob) {
-  return URL.createObjectURL(blob);
-}
 
 function addDesignToShirt(callback) {
   $("#holaBtn").click();
@@ -1147,8 +1129,7 @@ function addDesignToShirt(callback) {
   domtoimage
     .toJpeg(node, param)
     .then(function (dataUrl) {
-      const blob = base64ToBlob(dataUrl);
-      convertedFrontUrl = blobToPng(blob);
+      convertedFrontUrl = dataUrl
       if (hasImagesForFrontCanvas || hasTextForFrontCanvas) {
         document.querySelector("#shirtDesignFront").src = convertedFrontUrl;
         document.querySelector("#shirtDesignFront").style.display = "block";
@@ -1225,9 +1206,7 @@ function addDesignToShirt2(callback) {
   domtoimage
     .toJpeg(node, param)
     .then(function (dataUrl) {
-      // convertedBackUrl = dataUrl;
-      const blob = base64ToBlob(dataUrl);
-      convertedBackUrl = blobToPng(blob);
+      convertedBackUrl = dataUrl;
       openModal();
       $(".loading-modal").hide();
       if (hasImagesForBackCanvas || hasTextForBackCanvas) {
