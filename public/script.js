@@ -939,9 +939,9 @@ async function handleUpload(selectedSizes, shirtColor) {
     const session = await response.json();
 
     // Redirect to the Stripe Checkout page
-    if (termsAccepted) {
-      window.location.href = session.url;
-    }
+    // if (termsAccepted) {
+    window.location.href = session.url;
+    // }
     sessionUrl = session.url;
   } catch (error) {
     console.error("Error processing checkout:", error);
@@ -977,6 +977,9 @@ document.querySelectorAll(".cart-btn").forEach((btn) => {
       $(".loader").addClass("inline-block");
       $(".loading-modal").addClass("inline-block");
       $(".overlay").addClass("inline-block");
+      canvas.backgroundColor = "#00b140";
+      canvas2.backgroundColor = "#00b140";
+      canvas.renderAll();
       addDesignToShirt(() => handleUpload(selectedSizes, shirtColor));
     }
   });
@@ -1009,7 +1012,10 @@ async function uploadImage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ frontImage: canvasFrontDesign }),
+        body: JSON.stringify({
+          frontImage:
+            window.innerWidth <= 500 ? convertedFrontUrl : canvasFrontDesign,
+        }),
       });
 
       if (!frontResponse.ok) {
@@ -1026,7 +1032,10 @@ async function uploadImage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ backImage: canvasBackDesign }),
+        body: JSON.stringify({
+          backImage:
+            window.innerWidth <= 500 ? convertedBackUrl : canvasBackDesign,
+        }),
       });
 
       if (!backResponse.ok) {
@@ -1054,6 +1063,7 @@ async function uploadImage() {
     });
   }
 }
+
 
 function loadImageAsync(url) {
   return new Promise((resolve, reject) => {
@@ -1103,12 +1113,16 @@ function addDesignToShirt(callback) {
   $("#holaBtn").click();
   $(".shirtSize").hide();
   // Disable borders
-  canvas.discardActiveObject().renderAll();
+  // canvas.discardActiveObject().renderAll();
+
+  document.querySelectorAll("canvas").forEach((canvas) => {
+    canvas.style.border = "2px dashed black";
+  });
 
   const img = document.getElementById("shirt-image");
 
   const originalImg = img.src;
-  // img.src = "./Shirt/Front/White.jpeg";
+  img.src = "./Shirt/Front/bg.png";
   const node = document.getElementById("canvas-front-container");
 
   const targetWidth = 4500;
@@ -1180,12 +1194,12 @@ function addDesignToShirt2(callback) {
   $(".shirtSize").hide();
 
   // Disable borders
-  canvas2.discardActiveObject().renderAll();
+  // canvas2.discardActiveObject().renderAll();
 
-  const img = document.getElementById("shirt-image");
+  const img = document.getElementById("shirt-image-back");
 
   const originalImg = img.src;
-  // img.src = "./Shirt/Front/White.jpeg";
+  img.src = "./Shirt/Back/bg.png";
   const node = document.getElementById("canvas-back-container");
 
   const targetWidth = 4500;
@@ -1229,8 +1243,9 @@ function addDesignToShirt2(callback) {
     .toJpeg(node, param)
     .then(function (dataUrl) {
       convertedBackUrl = dataUrl;
-      openModal();
+      // openModal();
       $(".loading-modal").hide();
+      $(".overlay").hide();
       if (hasImagesForBackCanvas || hasTextForBackCanvas) {
         document.querySelector("#shirtDesignBack").src = convertedBackUrl;
         document.querySelector("#shirtDesignBack").style.display = "block";
