@@ -45,7 +45,7 @@ var formattedExpectedDeliveryDate = expectedDeliveryDate
 
 app.use(express.json({ limit: "50mb" }));
 
-const YOUR_DOMAIN = "https://desyy.onrender.com";
+const YOUR_DOMAIN = "https://www.desyy.com";
 // const YOUR_DOMAIN = "http://localhost:4242";
 
 const cloudinary = require("cloudinary").v2;
@@ -62,7 +62,7 @@ app.post("/upload", (req, res) => {
   cloudinary.uploader.upload(
     frontImage,
     {
-      public_id: "unique_public_id",
+      public_id: `${Date.now()}unique_public_id`,
       timeout: 600000,
     },
     function (error, result) {
@@ -83,7 +83,7 @@ app.post("/uploadBack", (req, res) => {
   cloudinary.uploader.upload(
     backImage,
     {
-      public_id: `unique_public_id_back`,
+      public_id: `${Date.now()}_unique_public_id_back`,
       timeout: 600000,
     },
     function (error, result) {
@@ -149,6 +149,7 @@ app.post("/create-checkout-session", async (req, res) => {
             quantity: sum,
           },
         ],
+        allow_promotion_codes: true,
         mode: "payment",
         shipping_address_collection: {
           allowed_countries: ["US"],
