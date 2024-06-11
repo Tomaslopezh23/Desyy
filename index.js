@@ -137,7 +137,7 @@ app.post("/create-checkout-session", async (req, res) => {
         line_items: [
           {
             price_data: {
-              unit_amount: hasBothSides ? 2790 : 1990,
+              unit_amount: hasBothSides ? 3499 : 2499,
               product_data: {
                 name: "T-Shirt",
                 description: "Awesome T-Shirt",
