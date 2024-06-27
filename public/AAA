@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificación de Contacto</title>
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 15px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="notification">
+        <p>Type me, this is my contact:</p>
+        <p>Email: <a href="mailto:tomaslphr@gmail.com">tomaslphr@gmail.com</a></p>
+        <p>Tel: <a href="tel:+573115800180">+57 311 580 0180</a></p>
+    </div>
+</body>
+</html>
