@@ -10,10 +10,11 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 app.use(express.static("public"));
+app.use(express.static("."));
 app.use(
   cors({
     origin: "*",
-
+    allowedHeaders: true,
   })
 );
 
@@ -129,7 +130,7 @@ app.post("/create-checkout-session", async (req, res) => {
 
     const sum = Object.values(sizes).reduce((acc, value) => acc + value, 0);
 
-    console.log({ frontSideSecureUrl, backSideSecureUrl });
+    console.log({ frontSideSecureUrl, backSideSecureUrl, sizes });
 
     // Create a Checkout session with the selected image and quantity
     const session = await stripe.checkout.sessions.create(
