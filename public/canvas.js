@@ -633,8 +633,8 @@ $(document).ready(function () {
     }
 
     // document.querySelectorAll(".cart-btn").forEach((btn) => {
-    $(document).on("click", ".cart-btn", function (params) {
-      $(this).click("click", async function () {
+    $(document).on("click", ".cart-btn", async function (params) {
+  
         const selectedImageSrc = document.getElementById("shirt-image").src;
         var shirtColor = $(".color-div.active").attr("id");
         $("#shirt-size-tooltip").removeClass("hidden");
@@ -672,7 +672,7 @@ $(document).ready(function () {
           canvas.renderAll();
           addDesignToShirt(() => handleUpload(selectedSizes, shirtColor));
         }
-      });
+    
     });
 
     // });
