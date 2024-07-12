@@ -597,7 +597,7 @@ $(document).ready(function () {
         const uploadResponse = await uploadImage();
 
         const response = await fetch(
-          "http://localhost:4242/create-checkout-session",
+          "https://desyy.com/create-checkout-session",
           {
             method: "POST",
             headers: {
@@ -691,7 +691,7 @@ $(document).ready(function () {
       try {
         // Send the front side image data to backend and wait for completion
         if (hasImagesForFrontCanvas || hasTextForFrontCanvas) {
-          const frontResponse = await fetch("http://localhost:4242/upload", {
+          const frontResponse = await fetch("https://desyy.com/upload", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -713,7 +713,7 @@ $(document).ready(function () {
 
         if (hasImagesForBackCanvas || hasTextForBackCanvas) {
           // Send the back side image data to backend and wait for completion
-          const backResponse = await fetch("http://localhost:4242/uploadBack", {
+          const backResponse = await fetch("https://desyy.com/uploadBack", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
