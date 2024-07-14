@@ -153,7 +153,27 @@ app.post("/create-checkout-session", async (req, res) => {
         allow_promotion_codes: true,
         mode: "payment",
         shipping_address_collection: {
-          // allowed_countries: ["US"],
+          allowed_countries: [
+            "US",
+            "FR",
+            "DE",
+            "GB",
+            "AC",
+            "AD",
+            "PK",
+            "AE",
+            "AF",
+            "AG",
+            "AI",
+            "AL",
+            "AM",
+            "AQ",
+            "DJ",
+            "IN",
+            "IM",
+            "PG",
+            "PH",
+          ],
         },
         custom_text: {
           shipping_address: {
