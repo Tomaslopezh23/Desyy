@@ -55,14 +55,43 @@ $(document).ready(function () {
 
   // Fabric.js initialization
   if (typeof fabric !== "undefined") {
-    fabric.Object.prototype.set({
-      cornerColor: "#9652a8",
+    const mobileConfig = {
+      cornerSize: 45,
+      cornerStrokeWidth: 20,
+      padding: 25,
+      cornerScalingAction: false,
+      cornerStyle: "circle",
+      cornerStrokeColor: "#000",
+    };
+
+    const desktopConfig = {
       cornerSize: 200,
-      cornerStrokeWidth: 200,
-      transparentCorners: false,
+      cornerStrokeWidth: 10,
+      padding: 100,
+      cornerStrokeColor: "#9652a8",
+      cornerStyle: "circle",
+    };
+
+    const isMobile = window.innerWidth <= 500; // Adjust breakpoint as needed
+
+    fabric.Object.prototype.set({
+      // Mobile-Optimized Selection
+      cornerSize: isMobile ? mobileConfig.cornerSize : desktopConfig.cornerSize,
+      cornerStrokeWidth: isMobile
+        ? mobileConfig.cornerStrokeWidth
+        : desktopConfig.cornerStrokeWidth,
+      padding: isMobile ? mobileConfig.padding : desktopConfig.padding,
+      transparentCorners: false, // Show clear selection indicators
       selectable: true,
-      borderColor: "#9652a8",
-      borderScaleFactor: 20,
+      cornerStrokeColor: isMobile
+        ? mobileConfig.cornerStrokeColor
+        : desktopConfig.cornerStrokeColor,
+      // Improved User Experience (Optional Visual Feedback)
+      borderColor: "#9652a8", // Semi-transparent blue border on select
+      cornerColor: "#9652a8", // Semi-transparent blue corners on select
+      // cornerStyle: isMobile ? mobileConfig.cornerStyle : desktopConfig.cornerStyle,
+      borderScaleFactor: isMobile ? 7 : 40,
+      cornerScalingAction: false,
     });
 
     const canvas = new fabric.Canvas("canvas", {
@@ -125,6 +154,9 @@ $(document).ready(function () {
       changeTextSize("#text-size-field", activeCanvas, false);
       changeTextSize("#increment-btn", activeCanvas, true, "+");
       changeTextSize("#decrement-btn", activeCanvas, true, "-");
+      activeCanvas.on("selection:created", selectAction);
+      activeCanvas.on("selection:updated", selectAction);
+      activeCanvas.on("selection:cleared", clearAction);
     }
 
     // Event listener for "Canvas1" button
@@ -362,8 +394,8 @@ $(document).ready(function () {
           top: 100,
           width: 200,
           height: 100,
-          fontFamily: "Arial",
-          fontSize: 250,
+          fontFamily: "Poppins",
+          fontSize: window.innerWidth > 500 ? 250 : 50,
           fill: "white",
           fontWeight: "normal",
           fontStyle: "normal",
@@ -634,45 +666,45 @@ $(document).ready(function () {
 
     // document.querySelectorAll(".cart-btn").forEach((btn) => {
     $(document).on("click", ".cart-btn", async function (params) {
-  
-        const selectedImageSrc = document.getElementById("shirt-image").src;
-        var shirtColor = $(".color-div.active").attr("id");
-        $("#shirt-size-tooltip").removeClass("hidden");
+      // $(this).click("click", async function () {
+      var shirtColor = $(".color-div.active").attr("id");
+      $("#shirt-size-tooltip").removeClass("hidden");
+      console.log(shirtColor);
+      // Collect the selected sizes and quantities
+      var selectedSizes = {};
+      $(".size-div").each(function () {
+        var size = $(this).find("p").text().trim();
+        var quantity = parseInt($(this).find(".quantity").text());
 
-        // Collect the selected sizes and quantities
-        var selectedSizes = {};
-        $(".size-div").each(function () {
-          var size = $(this).find("p").text().trim();
-          var quantity = parseInt($(this).find(".quantity").text());
-
-          // Only include sizes with a quantity greater than 0
-          if (quantity > 0) {
-            selectedSizes[size] = quantity;
-          }
-        });
-
-        if (isObjectEmpty(selectedSizes)) {
-          return;
-        } else {
-          document.querySelectorAll(".cart-btn").forEach((btn) => {
-            // btn.textContent = "";
-            btn.disabled = true;
-            btn.style.opacity = "0.7";
-          });
-          // $(".loader").addClass("inline-block");
-          // $(".loading-modal").addClass("inline-block");
-          // $(".overlay").addClass("inline-block");
-          canvas.backgroundColor = "#00b140";
-          canvas2.backgroundColor = "#00b140";
-          setTimeout(() => {
-            canvas.backgroundColor = "transparent";
-            canvas2.backgroundColor = "transparent";
-            canvas.renderAll();
-          }, 3000);
-          canvas.renderAll();
-          addDesignToShirt(() => handleUpload(selectedSizes, shirtColor));
+        // Only include sizes with a quantity greater than 0
+        if (quantity > 0) {
+          selectedSizes[size] = quantity;
         }
-    
+      });
+
+      if (isObjectEmpty(selectedSizes)) {
+        return;
+      } else {
+        document.querySelectorAll(".cart-btn").forEach((btn) => {
+          // btn.textContent = "";
+          btn.disabled = true;
+          btn.style.opacity = "0.7";
+          btn.style.color = "#BA69F0";
+        });
+        $(".loader").addClass("inline-block");
+        // $(".loading-modal").addClass("inline-block");
+        // $(".overlay").addClass("inline-block");
+        canvas.backgroundColor = "#00b140";
+        canvas2.backgroundColor = "#00b140";
+        setTimeout(() => {
+          canvas.backgroundColor = "transparent";
+          canvas2.backgroundColor = "transparent";
+          canvas.renderAll();
+        }, 3000);
+        canvas.renderAll();
+        addDesignToShirt(() => handleUpload(selectedSizes, shirtColor));
+      }
+      // });
     });
 
     // });
@@ -763,7 +795,7 @@ $(document).ready(function () {
       const img = document.getElementById("shirt-image");
 
       const originalImg = img.src;
-      img.src = "./Shirt/Front/bg.png";
+      img.src = "./new-images/Front/bg.png";
       const node = document.getElementById("canvas-front-container");
 
       const targetWidth = 4500;
@@ -840,7 +872,7 @@ $(document).ready(function () {
       const img = document.getElementById("shirt-image-back");
 
       const originalImg = img.src;
-      img.src = "./Shirt/Back/bg.png";
+      img.src = "./new-images /Back/bg.png";
       const node = document.getElementById("canvas-back-container");
 
       const targetWidth = 4500;
@@ -905,6 +937,82 @@ $(document).ready(function () {
         .finally(function () {
           img.src = originalImg;
         });
+    }
+
+    // Add event listeners to the range sliders
+    const widthSlider = document.getElementById("widthResizer");
+    const heightSlider = document.getElementById("heightResizer");
+    const fontSizeSlider = document.getElementById("fontSizeSlider");
+    const fontSizeSliderCon = document.querySelector(".text-font-size");
+    const sizeSliderCon = document.querySelectorAll(".resizer-slider");
+
+    widthSlider.addEventListener("input", function () {
+      let activeObject = activeCanvas.getActiveObject();
+      if (!activeObject) return;
+      if (activeObject.type === "image") {
+        //  change image scalingX
+        activeObject.set({
+          scaleX: this.value / activeObject.width,
+        });
+        activeObject.setCoords();
+        activeCanvas.renderAll();
+      }
+    });
+
+    heightSlider.addEventListener("input", function () {
+      let activeObject = activeCanvas.getActiveObject();
+      if (!activeObject) return;
+      if (activeObject.type === "image") {
+        //  change image scalingY
+        activeObject.set({
+          scaleY: this.value / activeObject.height,
+        });
+        activeObject.setCoords();
+        activeCanvas.renderAll();
+      }
+    });
+
+    fontSizeSlider.addEventListener("input", function () {
+      const fontSizeValue = parseInt(this.value);
+      let activeObject = activeCanvas.getActiveObject();
+      if (!activeObject) return;
+      if (activeObject.type === "i-text") {
+        activeObject.set("fontSize", fontSizeValue);
+        activeCanvas.renderAll();
+      }
+    });
+
+    // Change slider values when selecting any object
+    activeCanvas.on("selection:created", selectAction);
+    activeCanvas.on("selection:updated", selectAction);
+    activeCanvas.on("selection:cleared", clearAction);
+
+    function clearAction() {
+      fontSizeSliderCon.style.display = "none";
+      sizeSliderCon.forEach((slider) => {
+        slider.style.display = "none";
+      });
+    }
+
+    function selectAction(e) {
+      const activeObject = e.selected[0];
+      if (activeObject) {
+        if (activeObject.type === "i-text") {
+          fontSizeSliderCon.style.display = "block";
+          sizeSliderCon.forEach((slider) => {
+            slider.style.display = "none";
+          });
+          fontSizeSlider.value = activeObject.fontSize;
+        } else {
+          fontSizeSliderCon.style.display = "none";
+          sizeSliderCon.forEach((slider) => {
+            slider.style.display = "block";
+          });
+
+          widthSlider.value = activeObject.width * activeObject.scaleX;
+          heightSlider.value = activeObject.height * activeObject.scaleY;
+        }
+      }
     }
   }
 });
