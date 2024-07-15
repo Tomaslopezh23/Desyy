@@ -56,39 +56,35 @@ if (!isMobile()) {
   //   shirtImageTippy[0].popper.style.opacity = "1";
   // });
 } else {
-  document
-    .querySelectorAll(
-      "#text-button, #shirt-size-button, #shirt-color-button, #shirt-image-button"
-    )
-    .forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        let tippyInstance;
-        if (e.currentTarget === document.querySelector("#text-button")) {
-          // tippyInstance = textTippy[0];
-        } else if (
-          e.currentTarget === document.querySelector("#shirt-size-button")
-        ) {
-          tippyInstance = shirtSizeTippy[0];
-        } else if (
-          e.currentTarget === document.querySelector("#shirt-color-button")
-        ) {
-          tippyInstance = shirtColorTippy[0];
-        } else {
-          // tippyInstance = shirtImageTippy[0];
-        }
+  document.querySelectorAll("#shirt-color-button").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      let tippyInstance;
+      if (e.currentTarget === document.querySelector("#text-button")) {
+        // tippyInstance = textTippy[0];
+      } else if (
+        e.currentTarget === document.querySelector("#shirt-size-button")
+      ) {
+        tippyInstance = shirtSizeTippy[0];
+      } else if (
+        e.currentTarget === document.querySelector("#shirt-color-button")
+      ) {
+        tippyInstance = shirtColorTippy[0];
+      } else {
+        // tippyInstance = shirtImageTippy[0];
+      }
 
-        if (e.currentTarget.classList.contains("active")) {
-          e.currentTarget.classList.remove("active");
-          tippyInstance.hide();
-        } else {
-          e.currentTarget.classList.add("active");
-          tippyInstance.show();
-        }
-      });
+      if (e.currentTarget.classList.contains("active")) {
+        e.currentTarget.classList.remove("active");
+        tippyInstance.hide();
+      } else {
+        e.currentTarget.classList.add("active");
+        tippyInstance.show();
+      }
     });
+  });
 }
 
-document.querySelectorAll(".cart-btn").forEach((btn) => {
+document.querySelectorAll(".purchase-now-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     shirtSizeTippy[0].show();
     shirtSizeTippy[0].popper.style.opacity = "1";
