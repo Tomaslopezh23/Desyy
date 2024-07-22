@@ -1,4 +1,3 @@
-// This is your test secret API key.
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -132,18 +131,21 @@ app.post("/create-checkout-session", async (req, res) => {
 
     console.log({ frontSideSecureUrl, backSideSecureUrl, sizes });
 
+    // Get the price based on whether both sides have content and the shipping country
+    const basePrice = hasBothSides ? 3499 : 2499;
+    const additionalFee = 500; // $5 additional fee
+    const finalPrice = (shippingCountry) => (shippingCountry === "US" ? basePrice : basePrice + additionalFee);
+
     // Create a Checkout session with the selected image and quantity
     const session = await stripe.checkout.sessions.create(
       {
         line_items: [
           {
             price_data: {
-              unit_amount: hasBothSides ? 3499 : 2499,
+              unit_amount: basePrice, // Temporarily set to base price
               product_data: {
                 name: "T-Shirt",
                 description: "Awesome T-Shirt",
-
-                // images: [frontSideSecureUrl],
               },
               currency: "usd",
             },
@@ -213,15 +215,12 @@ app.post("/create-checkout-session", async (req, res) => {
         phone_number_collection: {
           enabled: true,
         },
-
         success_url: `${YOUR_DOMAIN}/shirt-thank-you.html`,
         cancel_url: `${YOUR_DOMAIN}/shirt.html`,
-        // Pass the selected image information to the metadata
         payment_method_types: ["card"],
         payment_intent_data: {
           metadata: {
             sizeDetails: JSON.stringify(sizes),
-            // ShirtFront: JSON.stringify(imageSrc),
             shirtColor: color,
             dataFront: frontSideSecureUrl,
             dataBack: backSideSecureUrl,
@@ -232,6 +231,19 @@ app.post("/create-checkout-session", async (req, res) => {
         timeout: 600000,
       }
     );
+
+    // Adjust the price if the shipping country is not the US
+    const sessionDetails = await stripe.checkout.sessions.retrieve(session.id);
+    const shippingCountry = sessionDetails.shipping_address_collection.allowed_countries[0];
+    const updatedLineItems = session.line_items.map(item => ({
+      ...item,
+      price_data: {
+        ...item.price_data,
+        unit_amount: finalPrice(shippingCountry),
+      }
+    }));
+
+    await stripe.checkout.sessions.update(session.id, { line_items: updatedLineItems });
 
     res.json({ url: session.url });
   } catch (error) {
