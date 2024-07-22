@@ -8,6 +8,7 @@ const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 const express = require("express");
 
 const cors = require("cors");
+const { data } = require("autoprefixer");
 const app = express();
 app.use(express.static("public"));
 app.use(express.static("."));
@@ -21,9 +22,6 @@ app.use(
 let frontSideSecureUrl = "";
 let backSideSecureUrl = "";
 let hasBothSides = false;
-let country = "US";
-
-let shippingCharges = country === "PK" ? 0 : 500;
 
 // Get the current date
 var currentDate = new Date();
@@ -49,8 +47,8 @@ var formattedExpectedDeliveryDate = expectedDeliveryDate
 
 app.use(express.json({ limit: "50mb" }));
 
-const YOUR_DOMAIN = "https://www.desyy.com";
-// const YOUR_DOMAIN = "http://localhost:4242";
+// const YOUR_DOMAIN = "https://www.desyy.com";
+const YOUR_DOMAIN = "http://localhost:4242";
 
 const cloudinary = require("cloudinary").v2;
 
@@ -113,7 +111,10 @@ app.post("/create-checkout-session", async (req, res) => {
       hasTextsForFrontCanvas,
       hasImagesForBackCanvas,
       hasTextsForBackCanvas,
+      isCountryUSA,
     } = req.body;
+
+    console.log({ isCountryUSA });
 
     if (!hasImagesForFrontCanvas && !hasTextsForFrontCanvas) {
       frontSideSecureUrl = "none";
@@ -133,8 +134,7 @@ app.post("/create-checkout-session", async (req, res) => {
 
     const sum = Object.values(sizes).reduce((acc, value) => acc + value, 0);
 
-    console.log({ frontSideSecureUrl, backSideSecureUrl, sizes });
-
+    let shippingCharges = isCountryUSA ? 0 : 500;
     // Create a Checkout session with the selected image and quantity
     const session = await stripe.checkout.sessions.create(
       {
@@ -237,8 +237,6 @@ app.post("/create-checkout-session", async (req, res) => {
         timeout: 600000,
       }
     );
-
-    console.log(session);
 
     res.json({ url: session.url });
   } catch (error) {
