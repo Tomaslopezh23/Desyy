@@ -2,6 +2,7 @@ import { svgRotateIcon } from "../assets/svgRotateIcon.js";
 import { updateInputChangeListener } from "./utils/uploadImage.js";
 // import { textTippy } from "./tooltip.js";
 
+
 $(document).ready(function () {
   // let scale = 1;
   // let panX = 0;
@@ -124,7 +125,7 @@ $(document).ready(function () {
     } else {
       SIZE = 2000;
     }
-
+alert("KK")
     let isCountryUSA = false;
 
     async function getIp() {
