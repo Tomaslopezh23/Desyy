@@ -21,6 +21,9 @@ app.use(
 let frontSideSecureUrl = "";
 let backSideSecureUrl = "";
 let hasBothSides = false;
+let country = "US";
+
+let shippingCharges = country === "PK" ? 0 : 500;
 
 // Get the current date
 var currentDate = new Date();
@@ -63,7 +66,7 @@ app.post("/upload", (req, res) => {
   cloudinary.uploader.upload(
     frontImage,
     {
-      public_id: ${Date.now()}unique_public_id,
+      public_id: `${Date.now()}unique_public_id`,
       timeout: 600000,
     },
     function (error, result) {
@@ -84,7 +87,7 @@ app.post("/uploadBack", (req, res) => {
   cloudinary.uploader.upload(
     backImage,
     {
-      public_id: ${Date.now()}_unique_public_id_back,
+      public_id: `${Date.now()}_unique_public_id_back`,
       timeout: 600000,
     },
     function (error, result) {
@@ -138,7 +141,9 @@ app.post("/create-checkout-session", async (req, res) => {
         line_items: [
           {
             price_data: {
-              unit_amount: hasBothSides ? 3499 : 2499,
+              unit_amount: hasBothSides
+                ? 3499 + shippingCharges
+                : 2499 + shippingCharges,
               product_data: {
                 name: "T-Shirt",
                 description: "Awesome T-Shirt",
@@ -214,8 +219,8 @@ app.post("/create-checkout-session", async (req, res) => {
           enabled: true,
         },
 
-        success_url: ${YOUR_DOMAIN}/shirt-thank-you.html,
-        cancel_url: ${YOUR_DOMAIN}/shirt.html,
+        success_url: `${YOUR_DOMAIN}/shirt-thank-you.html`,
+        cancel_url: `${YOUR_DOMAIN}/shirt.html`,
         // Pass the selected image information to the metadata
         payment_method_types: ["card"],
         payment_intent_data: {
@@ -232,6 +237,8 @@ app.post("/create-checkout-session", async (req, res) => {
         timeout: 600000,
       }
     );
+
+    console.log(session);
 
     res.json({ url: session.url });
   } catch (error) {
