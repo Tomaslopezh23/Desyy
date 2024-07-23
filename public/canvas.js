@@ -125,7 +125,7 @@ $(document).ready(function () {
     } else {
       SIZE = 2000;
     }
-alert("KK")
+
     let isCountryUSA = false;
 
     async function getIp() {
